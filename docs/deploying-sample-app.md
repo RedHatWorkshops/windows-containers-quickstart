@@ -1,1 +1,82 @@
-# deploying-sample-app.md
+# Deploying a Sample Application
+
+In this module we will deploy a sample application running a webservice on the Windows Node. This application will be running inside a Windows Container on the Windows Node.
+
+## Deploy the Application
+
+Now, back on the bastion host, you will deploy the application in the `default` namespace.
+
+```shell
+$ oc create -n default -f \
+https://gist.githubusercontent.com/suhanime/683ee7b5a2f55c11e3a26a4223170582/raw/d893db98944bf615fccfe73e6e4fb19549a362a5/WinWebServer.yaml
+```
+
+> In order to deploy into a different namespace SCC must be disabled in that namespace. This should *NEVER* be used in production, and any namespace that this has been done to *SHOULD NOT* be used to run Linux pods.
+> To skip SCC for a namespace the label `openshift.io/run-level = 1` should be applied to the namespace. This will apply to both Linux and windows pods, and thus (again) Linux pods *SHOULD NOT* be deployed into this namespace.
+
+Once deployed you can explore everything that's been created
+
+## Explore Artifacts
+
+The application should have deployed as a pod
+
+```shell
+$ oc get pods -n default
+NAME                             READY   STATUS    RESTARTS   AGE
+win-webserver-549cd7495d-f6j95   1/1     Running   0          5m58s
+```
+
+This pods was deployed by a deployment. Remember to note that it has a toleration so it can run on the Windows Node.
+
+```shell
+$ oc get deploy win-webserver -o yaml
+```
+
+If you take a look at the pod, you see that it's running on the Windows Node.
+
+```shell
+$ oc get pods -n default -o wide
+NAME                             READY   STATUS    RESTARTS   AGE     IP           NODE                                        NOMINATED NODE   READINESS GATES
+win-webserver-549cd7495d-f6j95   1/1     Running   0          8m14s   10.132.0.2   ip-10-0-147-19.us-east-2.compute.internal   <none>           <none>
+
+$ oc get nodes -l kubernetes.io/os=windows
+NAME                                        STATUS   ROLES    AGE    VERSION
+ip-10-0-147-19.us-east-2.compute.internal   Ready    worker   2d1h   v1.19.0-rc.2.1023+f5121a6a6a02dd
+```
+
+Login to the Windows Node
+
+```shell
+bash ~/windows_node_scripts/sshcmd.sh ip-10-0-147-19.us-east-2.compute.internal
+```
+
+Once in the Windows Node, see running docker images.
+
+```shell
+PS C:\Users\Administrator> docker ps
+CONTAINER ID        IMAGE                                          COMMAND                  CREATED             STATUS              PORTS
+      NAMES
+8d2aec639ec3        715aaeac112d                                   "powershell.exe -com…"   11 minutes ago      Up 11 minutes
+      k8s_windowswebserver_win-webserver-549cd7495d-f6j95_default_7b3066a3-9ca9-496f-bc6e-d8fb29c251c3_0
+e0aa2a286e42        mcr.microsoft.com/oss/kubernetes/pause:1.3.0   "cmd /S /C pauseloop…"   11 minutes ago      Up 11 minutes
+      k8s_POD_win-webserver-549cd7495d-f6j95_default_7b3066a3-9ca9-496f-bc6e-d8fb29c251c3_0
+```
+
+Exit out of the Windows Node
+
+```shell
+PS C:\Users\Administrator> exit
+```
+
+You can create a route just like any other workload.
+
+```shell
+$ oc expose svc/win-webserver
+```
+
+You can now access it via the route.
+
+```shell
+$ curl -s http://$(oc get route win-webserver -n default -o jsonpath='{.spec.host}')
+<html><body><H1>Windows Container Web Server</H1></body></html>
+```
