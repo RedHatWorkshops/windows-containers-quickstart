@@ -1,0 +1,22 @@
+site_name: OpenShift Windows Containers
+theme: 
+    name: null
+    custom_dir: openshift/
+    navigation_depth: 1
+    include_homepage_in_sidebar: true
+    include_search_page: false
+
+extra_css:
+    - css/video.css
+
+nav:
+- Home: 'index.md'
+- Getting Started:
+    - 'Getting familiar with the installation': 'getting-familiar.md'
+    - 'Accessing the Windows Node': 'accessing-windows-node.md'
+- Working With The Windows Node:
+    - 'Scaling the Windows MachineSet': 'ms-scaling.md'
+    - 'Monitoring the WMCO': 'exploring-wmco.md'
+- Deploying A Sample Application:
+    - 'Predeployment Steps': 'predeploy-steps.md'
+    - 'Deploying the Application': 'deploying-sample-app.md'
