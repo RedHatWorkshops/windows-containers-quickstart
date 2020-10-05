@@ -73,5 +73,5 @@ ip-10-0-147-19.us-east-2.compute.internal    Ready    worker   47h     v1.19.0-r
 Delete a node the same way, by scaling it down.
 
 ```shell
-oc scale machineset cluster-lax-e35b-tmk54-windows-us-east-2a --replicas=1 -n openshift-machine-api
+$ oc scale machineset cluster-lax-e35b-tmk54-windows-us-east-2a --replicas=1 -n openshift-machine-api
 ```
