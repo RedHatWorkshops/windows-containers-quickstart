@@ -51,7 +51,7 @@ You'll notice the `ProxyCommand` that will SSH into the windows node and drop yo
 Before you can ssh into the windows node, export your `ssh-key` by first creating an ssh shell session
 
 ```shell
-$ eval `ssh-agent
+$ eval `ssh-agent`
 ```
 
 Then adding the `ec2-user`'s ssh-key
