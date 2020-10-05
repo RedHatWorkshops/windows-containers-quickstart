@@ -48,6 +48,18 @@ $ cat ~/windows_node_scripts/sshcmd.sh
 
 You'll notice the `ProxyCommand` that will SSH into the windows node and drop you into a `PowerShell` session.
 
+Before you can ssh into the windows node, export your `ssh-key` by first creating an ssh shell session
+
+```shell
+$ eval `ssh-agent
+```
+
+Then adding the `ec2-user`'s ssh-key
+
+```shell
+$ ssh-add  ${HOME}/.ssh/id_rsa
+```
+
 Grab the hostname of your windows node.
 
 ```shell
