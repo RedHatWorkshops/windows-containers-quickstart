@@ -11,8 +11,8 @@ $ oc create -n default -f \
 https://gist.githubusercontent.com/suhanime/683ee7b5a2f55c11e3a26a4223170582/raw/d893db98944bf615fccfe73e6e4fb19549a362a5/WinWebServer.yaml
 ```
 
-> In order to deploy into a different namespace SCC must be disabled in that namespace. This should *NEVER* be used in production, and any namespace that this has been done to *SHOULD NOT* be used to run Linux pods.
-> To skip SCC for a namespace the label `openshift.io/run-level = 1` should be applied to the namespace. This will apply to both Linux and windows pods, and thus (again) Linux pods *SHOULD NOT* be deployed into this namespace.
+> In order to deploy into a *__different__* namespace, SCC must be disabled in that namespace. This should *__NEVER__* be used in production, and any namespace that this has been done to *__SHOULD NOT__* be used to run Linux pods.
+> To skip SCC for a namespace the label `openshift.io/run-level = 1` should be applied to the namespace. This will apply to both Linux and windows pods, and thus (again) Linux pods *__SHOULD NOT__* be deployed into this namespace.
 
 Once deployed you can explore everything that's been created
 
@@ -29,7 +29,7 @@ win-webserver-549cd7495d-f6j95   1/1     Running   0          5m58s
 This pods was deployed by a deployment. Remember to note that it has a toleration so it can run on the Windows Node.
 
 ```shell
-$ oc get deploy win-webserver -o yaml
+$ oc get deploy win-webserver -o jsonpath='{.spec.template.spec.tolerations}' | jq -r
 ```
 
 If you take a look at the pod, you see that it's running on the Windows Node.
@@ -79,4 +79,22 @@ You can now access it via the route.
 ```shell
 $ curl -s http://$(oc get route win-webserver -n default -o jsonpath='{.spec.host}')
 <html><body><H1>Windows Container Web Server</H1></body></html>
+```
+
+You can `rsh` into this pod just like a windows pod by using `oc exec`. The following command will get you a PowerShell prompt in the Windows Webserver pod.
+
+```shell
+$ oc exec -it $(oc get pods -l app=win-webserver -o name) powershell
+```
+
+Once inside, you can see the process that's running the webserver.
+
+```shell
+PS C:\> tasklist /M /FI "IMAGENAME eq powershell.exe"  | Select-String -Pattern http
+```
+
+Exit out of the `rsh` session before continuing.
+
+```shell
+PS C:\> exit
 ```

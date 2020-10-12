@@ -105,7 +105,17 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
     249      22    30048      41404   1,325.14   3408   0 kube-proxy
 ```
 
-These are the main components needed to run a Windows Node. Remember that this node is managed the same way as RHCOS. Via the platform; so you won't have to do much with this Windows Node.
+These are the main components needed to run a Windows Node. Remember that this node is managed the same way as RHCOS, Via the platform; so you won't have to do much with this Windows Node.
+
+The base Windows Server docker image has been prepulled for you. You should be able to see it by running the `docker images` command in the PowerShell promt.
+
+```shell
+PS C:\Users\Administrator> docker images
+REPOSITORY                             TAG                 IMAGE ID            CREATED             SIZE   
+mcr.microsoft.com/windows/servercore   ltsc2019            715aaeac112d        5 weeks ago         5.06GB
+```
+
+> Don't be alarmed if you don't see it! You can pull the image yourself. We'll go over this in a different module
 
 Go ahead and exit the powershell session.
 

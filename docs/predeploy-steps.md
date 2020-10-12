@@ -4,7 +4,7 @@ In this module we prepare to deploy a sample application. This application will 
 
 ## Predeployment Steps
 
-The base image of the sample application, unfortunetly, is a big 5GB container. So if you deploy the application it'll timeout. To get around this you can prepull the image. 
+Before we deploy the sample Windows Container application; we'll need to make sure the image is prepulled on the Windows Node (since the base image is about 5G in size).
 
 First get your windows node.
 
@@ -29,7 +29,25 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 PS C:\Users\Administrator>
 ```
 
-Go ahead and pull `mcr.microsoft.com/windows/servercore:ltsc2019` 
+Make sure the image is on the node.
+
+```shell
+PS C:\Users\Administrator> docker images
+REPOSITORY                             TAG                 IMAGE ID            CREATED             SIZE   
+mcr.microsoft.com/windows/servercore   ltsc2019            715aaeac112d        5 weeks ago         5.06GB 
+```
+
+If it's there, you can exit and move on to the next module.
+
+```shell
+PS C:\Users\Administrator> exit
+```
+
+You can now deploy the sample application
+
+## Pulling The Base Image
+
+If the image is *__NOT__* on the node, go ahead and pull `mcr.microsoft.com/windows/servercore:ltsc2019` 
 
 ```shell
 PS C:\Users\Administrator> docker pull mcr.microsoft.com/windows/servercore:ltsc2019

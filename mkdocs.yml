@@ -14,9 +14,9 @@ nav:
 - Getting Started:
     - 'Getting familiar with the installation': 'getting-familiar.md'
     - 'Accessing the Windows Node': 'accessing-windows-node.md'
-- Working With The Windows Node:
-    - 'Scaling the Windows MachineSet': 'ms-scaling.md'
-    - 'Monitoring the WMCO': 'exploring-wmco.md'
 - Deploying A Sample Application:
     - 'Predeployment Steps': 'predeploy-steps.md'
     - 'Deploying the Application': 'deploying-sample-app.md'
+- Working With The Windows Node:
+    - 'Scaling the Windows MachineSet': 'ms-scaling.md'
+    - 'Exploring the WMCO': 'exploring-wmco.md'

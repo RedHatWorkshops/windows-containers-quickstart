@@ -61,6 +61,13 @@ Adding a node can take some time (up to 10 min). So keep a watch on this
 watch "oc get nodes -l kubernetes.io/os=windows"
 ```
 
+Another thing you can do is (in another window) watch the WMCO logs with the following command:
+
+```shell
+oc logs -n windows-machine-config-operator -f \
+$(oc get pods -n windows-machine-config-operator -l name=windows-machine-config-operator -o name)
+```
+
 After a while you should have two Windows nodes
 
 ```shell

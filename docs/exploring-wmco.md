@@ -24,7 +24,7 @@ A lot of debugging is done by tailing this log during a scale operation or a mac
 $ oc -n windows-machine-config-operator logs -f windows-machine-config-operator-6b87bf88d5-qmgft
 ```
 
-*NOTE* Another good place to look during debugging is the events in the `openshift-machine-api` namespace.
+*__NOTE__* Another good place to look during debugging is the events in the `openshift-machine-api` namespace.
 
 ```shell
 $ oc get events -n openshift-machine-api 
