@@ -81,7 +81,7 @@ $ curl -s http://$(oc get route win-webserver -n default -o jsonpath='{.spec.hos
 <html><body><H1>Windows Container Web Server</H1></body></html>
 ```
 
-You can `rsh` into this pod just like a windows pod by using `oc exec`. The following command will get you a PowerShell prompt in the Windows Webserver pod.
+You can `rsh` into this pod just like a Linux pod by using `oc exec`. The following command will get you a PowerShell prompt in the Windows Webserver pod.
 
 ```shell
 $ oc exec -it $(oc get pods -l app=win-webserver -o name) powershell
