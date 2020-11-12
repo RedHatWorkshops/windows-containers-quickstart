@@ -83,6 +83,8 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 PS C:\Users\Administrator>
 ```
 
+> *NOTE*: You might get a "Permission denied" error here. If you do, please go to the [Troubleshooting](##troubleshooting-ssh) section.
+
 ## Exploring the Node
 
 Once you are in, you can see that the docker process is running.
@@ -122,3 +124,47 @@ Go ahead and exit the powershell session.
 ```shell
 PS C:\Users\Administrator> exit
 ```
+
+## Troubleshooting SSH
+
+You might see the following `Permission denied` error:
+
+```shell
+$ bash windows_node_scripts/sshcmd.sh  ip-10-0-151-247.us-east-2.compute.internal
+administrator@ip-10-0-151-247.us-east-2.compute.internal: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+```
+
+There is a [known bug](https://bugzilla.redhat.com/show_bug.cgi?id=1883628) currently. The only current workaround is to delete the MachineSet.
+
+```shell
+oc delete -n openshift-machine-api $(oc get machinesets -n openshift-machine-api  --no-headers -o name | grep windows
+```
+
+Then wait for the Windows node to be deleted.
+
+```shell
+$ oc get nodes -l kubernetes.io/os=windows
+No resources found
+```
+
+Then recreate the MachineSet
+
+```shell
+oc apply -f ~/windows_node_artifacts/windows-ms.yaml
+```
+
+You can follow the process by inspecting the Windows Machine Config Operator logs
+
+```shell
+oc logs -f $(oc get pods -l name=windows-machine-config-operator -n openshift-windows-machine-config-operator -o name) -n openshift-windows-machine-config-operator
+```
+
+The process can take anywhere from 5-15 minutes. After that time, you should have a new Windows Node
+
+```shell
+$ oc get nodes -l kubernetes.io/os=windows
+NAME                                        STATUS   ROLES    AGE   VERSION
+ip-10-0-154-65.us-east-2.compute.internal   Ready    worker   12s   v1.19.0-rc.2.1023+f5121a6a6a02dd
+```
+
+You can now proceed with the [Logging into your node](##logging-into-your-node) section.
