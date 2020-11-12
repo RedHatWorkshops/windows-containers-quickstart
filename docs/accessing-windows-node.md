@@ -83,7 +83,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 PS C:\Users\Administrator>
 ```
 
-> *NOTE*: You might get a "Permission denied" error here. If you do, please go to the [Troubleshooting](##troubleshooting-ssh) section.
+> *NOTE*: You might get a "Permission denied" error here. If you do, please go to the [Troubleshooting](#troubleshooting-ssh) section.
 
 ## Exploring the Node
 
@@ -167,4 +167,4 @@ NAME                                        STATUS   ROLES    AGE   VERSION
 ip-10-0-154-65.us-east-2.compute.internal   Ready    worker   12s   v1.19.0-rc.2.1023+f5121a6a6a02dd
 ```
 
-You can now proceed with the [Logging into your node](##logging-into-your-node) section.
+You can now proceed with the [Logging into your node](#logging-into-your-node) section.
