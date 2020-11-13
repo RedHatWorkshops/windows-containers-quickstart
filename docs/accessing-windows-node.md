@@ -4,74 +4,41 @@ The Windows Node is installed with Windows Server 2019 Datacenter. This installa
 
 The same way as you do Linux nodes: SSH
 
-## Installing SSH Jumphost
-
-Like the RHCOS nodes, the Windows Node isn't accessible via the internet. Therefore you need to setup a "jumphost" for you to be able to ssh into the node.
-
-You can run this jumphost in a container. It's included in this bastion host.
-
-```shell
-$ ls ~/windows_node_scripts/deploy-sshproxy.sh 
-/home/ec2-user/windows_node_scripts/deploy-sshproxy.sh
-```
-
-Go ahead and run this script.
-
-```shell
-$ bash ~/windows_node_scripts/deploy-sshproxy.sh 
-```
-
-Once this is done you should have a jumphost running
-
-```shell
-$ oc get all -n openshift-ssh-bastion 
-NAME                               READY   STATUS    RESTARTS   AGE
-pod/ssh-bastion-5fcf8d7d9b-xrbl6   1/1     Running   0          46h
-
-NAME                  TYPE           CLUSTER-IP      EXTERNAL-IP                                                              PORT(S)        AGE
-service/ssh-bastion   LoadBalancer   172.30.218.57   a5a48f17b5345410b83fbee8fcf6b006-407575922.us-east-2.elb.amazonaws.com   22:31825/TCP   46h
-
-NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/ssh-bastion   1/1     1            1           46h
-
-NAME                                     DESIRED   CURRENT   READY   AGE
-replicaset.apps/ssh-bastion-5fcf8d7d9b   1         1         1       46h
-```
-
 ## Logging into your node
 
-Now you can SSH into the node via a proxy command in ssh. Go ahead and take a look at the script I provided for this.
+This demo/quickstart deployed an "ssh conainter" so that you can ssh into this host. Verify that it's running.
 
 ```shell
-$ cat ~/windows_node_scripts/sshcmd.sh
+$ oc get pods -l app=winc-ssh -n openshift-windows-machine-config-operator
+NAME                        READY   STATUS    RESTARTS   AGE
+winc-ssh-6b7f87bf75-cdcw2   1/1     Running   0          27m
 ```
 
-You'll notice the `ProxyCommand` that will SSH into the windows node and drop you into a `PowerShell` session.
 
-Before you can ssh into the windows node, export your `ssh-key` by first creating an ssh shell session
-
-```shell
-$ eval `ssh-agent`
-```
-
-Then adding the `ec2-user`'s ssh-key
-
-```shell
-$ ssh-add  ${HOME}/.ssh/id_rsa
-```
-
-Grab the hostname of your windows node.
+This host has everything needed in order to ssh into your Windows Node. First, get the hostname of your Windows Node. For example:
 
 ```shell
 $ oc get nodes -l kubernetes.io/os=windows
-NAME                                        STATUS   ROLES    AGE   VERSION
-ip-10-0-147-19.us-east-2.compute.internal   Ready    worker   46h   v1.19.0-rc.2.1023+f5121a6a6a02dd
+NAME                           STATUS   ROLES    AGE     VERSION
+ip-10-0-134-193.ec2.internal   Ready    worker   3h38m   v1.19.0-rc.2.1023+f5121a6a6a02dd
 ```
 
-And use the script to login
+Then, you can `rsh` into this container with the following command:
 
 ```shell
-$ bash ~/windows_node_scripts/sshcmd.sh ip-10-0-147-19.us-east-2.compute.internal
+oc -n openshift-windows-machine-config-operator rsh $(oc get pods -n openshift-windows-machine-config-operator -l app=winc-ssh -o name)
+```
+
+This will give you a shell prompt:
+
+```shell
+sh-4.4$
+```
+
+You can run the ssh script (built into the contianer) providing the Windows Node nodename as an argument. Example:
+
+```shell
+sh-4.4$ sshcmd.sh ip-10-0-134-193.ec2.internal
 ```
 
 This should drop you into a `PowerShell` session
@@ -82,8 +49,6 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 PS C:\Users\Administrator>
 ```
-
-> *NOTE*: You might get a "Permission denied" error here. If you do, please go to the [Troubleshooting](#troubleshooting-ssh) section.
 
 ## Exploring the Node
 
@@ -124,47 +89,3 @@ Go ahead and exit the powershell session.
 ```shell
 PS C:\Users\Administrator> exit
 ```
-
-## Troubleshooting SSH
-
-You might see the following `Permission denied` error:
-
-```shell
-$ bash windows_node_scripts/sshcmd.sh  ip-10-0-151-247.us-east-2.compute.internal
-administrator@ip-10-0-151-247.us-east-2.compute.internal: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-```
-
-There is a [known bug](https://bugzilla.redhat.com/show_bug.cgi?id=1883628) currently. The only current workaround is to delete the MachineSet.
-
-```shell
-oc delete -n openshift-machine-api $(oc get machinesets -n openshift-machine-api  --no-headers -o name | grep windows
-```
-
-Then wait for the Windows node to be deleted.
-
-```shell
-$ oc get nodes -l kubernetes.io/os=windows
-No resources found
-```
-
-Then recreate the MachineSet
-
-```shell
-oc apply -f ~/windows_node_artifacts/windows-ms.yaml
-```
-
-You can follow the process by inspecting the Windows Machine Config Operator logs
-
-```shell
-oc logs -f $(oc get pods -l name=windows-machine-config-operator -n openshift-windows-machine-config-operator -o name) -n openshift-windows-machine-config-operator
-```
-
-The process can take anywhere from 5-15 minutes. After that time, you should have a new Windows Node
-
-```shell
-$ oc get nodes -l kubernetes.io/os=windows
-NAME                                        STATUS   ROLES    AGE   VERSION
-ip-10-0-154-65.us-east-2.compute.internal   Ready    worker   12s   v1.19.0-rc.2.1023+f5121a6a6a02dd
-```
-
-You can now proceed with the [Logging into your node](#logging-into-your-node) section.

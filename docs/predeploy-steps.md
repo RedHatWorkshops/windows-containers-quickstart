@@ -14,10 +14,16 @@ NAME                                        STATUS   ROLES    AGE    VERSION
 ip-10-0-147-19.us-east-2.compute.internal   Ready    worker   2d1h   v1.19.0-rc.2.1023+f5121a6a6a02dd
 ```
 
-Next, use my ssh script to login to the node
+Next, login to the ssh container
 
 ```shell
-$ bash ~/windows_node_scripts/sshcmd.sh ip-10-0-147-19.us-east-2.compute.internal
+oc -n openshift-windows-machine-config-operator rsh $(oc get pods -n openshift-windows-machine-config-operator -l app=winc-ssh -o name)
+```
+
+Then use the provided script in the container
+
+```shell
+sh-4.4$ sshcmd.sh ip-10-0-147-19.us-east-2.compute.internal
 ```
 
 This will drop you into a `powershell` prompt.

@@ -44,10 +44,17 @@ NAME                                        STATUS   ROLES    AGE    VERSION
 ip-10-0-147-19.us-east-2.compute.internal   Ready    worker   2d1h   v1.19.0-rc.2.1023+f5121a6a6a02dd
 ```
 
-Login to the Windows Node
+Login to the Windows Node by first logging into the container
+
 
 ```shell
-bash ~/windows_node_scripts/sshcmd.sh ip-10-0-147-19.us-east-2.compute.internal
+oc -n openshift-windows-machine-config-operator rsh $(oc get pods -n openshift-windows-machine-config-operator -l app=winc-ssh -o name)
+```
+
+Then using the provided shellscript to login to the Windows Node via nodename
+
+```shell
+sh-4.4$ sshcmd.sh ip-10-0-147-19.us-east-2.compute.internal
 ```
 
 Once in the Windows Node, see running docker images.
