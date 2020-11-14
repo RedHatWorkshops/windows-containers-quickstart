@@ -29,7 +29,7 @@ win-webserver-549cd7495d-f6j95   1/1     Running   0          5m58s
 This pods was deployed by a deployment. Remember to note that it has a toleration so it can run on the Windows Node.
 
 ```shell
-$ oc get deploy win-webserver -o jsonpath='{.spec.template.spec.tolerations}' | jq -r
+$ oc get deploy win-webserver -n default -o jsonpath='{.spec.template.spec.tolerations}' | jq -r
 ```
 
 If you take a look at the pod, you see that it's running on the Windows Node.
