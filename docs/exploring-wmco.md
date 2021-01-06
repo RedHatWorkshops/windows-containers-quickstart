@@ -43,7 +43,7 @@ NAME                              AGE
 windows-machine-config-operator   17m
 ```
 
-Taking a loot at the subscription, oyu can see that the official operator is installed
+Taking a loot at the subscription, you can see that the official operator is installed
 and subscribed to the "stable" channel.
 
 ```shell
