@@ -32,28 +32,30 @@ $ oc get events -n openshift-machine-api
 
 ## Operator Installation
 
-The operator was installed via OLM, currently I'm building this myself until the official operator comes out.
-
-```shell
-$ oc get CatalogSource wmco -n openshift-marketplace 
-NAME   DISPLAY                            TYPE   PUBLISHER   AGE
-wmco   Windows Machine Config operators   grpc               2d
-```
+The operator was installed via OLM. You can see more info about how to install Windows Containers
+for OpenShift by visting the [official documentation page](https://docs.openshift.com/container-platform/4.6/windows_containers/windows-containers-release-notes.html) for OpenShift.
 
 You can take a look at the operator group installed in the `windows-machine-config-operator` namespace.
 
 ```shell
 $ oc get OperatorGroup -n openshift-windows-machine-config-operator 
 NAME                              AGE
-windows-machine-config-operator   2d
+windows-machine-config-operator   17m
 ```
 
-Taking a loot at the subscription
+Taking a loot at the subscription, oyu can see that the official operator is installed
+and subscribed to the "stable" channel.
 
 ```shell
 $ oc get Subscription -n openshift-windows-machine-config-operator 
-NAME                              PACKAGE                           SOURCE   CHANNEL
-windows-machine-config-operator   windows-machine-config-operator   wmco     alpha
+NAME                              PACKAGE                           SOURCE             CHANNEL
+windows-machine-config-operator   windows-machine-config-operator   redhat-operators   stable
 ```
 
-This will eventually be changed into using the official Operator. This is built using [the official codebase found on GitHub](https://github.com/openshift/windows-machine-config-operator)
+To see which version of the operator is running, check the CSV.
+
+```shell
+$ oc get csv -n openshift-windows-machine-config-operator
+NAME                                     DISPLAY                           VERSION   REPLACES   PHASE
+windows-machine-config-operator.v1.0.2   Windows Machine Config Operator   1.0.2                Succeeded
+```
