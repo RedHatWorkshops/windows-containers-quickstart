@@ -4,7 +4,7 @@ The Windows Node is installed and managed by the Machine Config Operator. In thi
 
 ## Windows MachineSet
 
-The Windows Node was installed using a MachineSet
+The Windows Node was installed using a MachineSet.
 
 ```shell
 $ oc get machinesets -n openshift-machine-api | grep windows
@@ -14,7 +14,7 @@ cluster-lax-e35b-tmk54-windows-us-east-2a   1         1         1       1       
 Go ahead and take a look at the details
 
 ```shell
-oc get machinesets -n openshift-machine-api cluster-lax-e35b-tmk54-windows-us-east-2a -o yaml
+$ oc get machinesets -n openshift-machine-api cluster-lax-e35b-tmk54-windows-us-east-2a -o yaml
 ```
 
 This is the same format as a RHCOS MachineSet. Take a look at the machine it creates.
@@ -58,7 +58,7 @@ cluster-lax-e35b-tmk54-windows-us-east-2a-nzqdq   Running       m5a.large   us-e
 Adding a node can take some time (up to 10 min). So keep a watch on this
 
 ```shell
-watch "oc get nodes -l kubernetes.io/os=windows"
+$ watch "oc get nodes -l kubernetes.io/os=windows"
 ```
 
 Another thing you can do is (in another window) watch the WMCO logs with the following command:

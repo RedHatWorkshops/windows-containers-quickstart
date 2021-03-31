@@ -3,13 +3,13 @@
 In this module, we'll get familiar with the cluster and the install of the Windows Node. If you haven't done already, login to the bastion node provided by the RHPDS email.
 
 ```shell
-ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
+$ ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
 ```
 
 Make sure you become the `ec2-user` as well.
 
 ```shell
-sudo su - ec2-user
+$ sudo su - ec2-user
 ```
 
 ## Windows Node
