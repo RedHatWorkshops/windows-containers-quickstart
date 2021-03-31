@@ -15,13 +15,13 @@ windows-machine-config-operator-6b87bf88d5-qmgft   1/1     Running   1          
 You can view the logs of the pod to see information about the deployment
 
 ```shell
-$ oc -n openshift-windows-machine-config-operator logs windows-machine-config-operator-6b87bf88d5-qmgft
+$ oc -n openshift-windows-machine-config-operator logs -l name=windows-machine-config-operator
 ```
 
 A lot of debugging is done by tailing this log during a scale operation or a machineset creation.
 
 ```shell
-$ oc -n openshift-windows-machine-config-operator logs -f windows-machine-config-operator-6b87bf88d5-qmgft
+$ oc -n openshift-windows-machine-config-operator logs -f -l name=windows-machine-config-operator
 ```
 
 *__NOTE__* Another good place to look during debugging is the events in the `openshift-machine-api` namespace.

@@ -26,7 +26,7 @@ NAME                             READY   STATUS    RESTARTS   AGE
 win-webserver-549cd7495d-f6j95   1/1     Running   0          5m58s
 ```
 
-This pods was deployed by a deployment. Remember to note that it has a toleration so it can run on the Windows Node.
+This pod was created by a deployment. Remember to note that it has a toleration so it can run on the Windows Node.
 
 ```shell
 $ oc get deploy win-webserver -n default -o jsonpath='{.spec.template.spec.tolerations}' | jq -r
@@ -48,7 +48,7 @@ Login to the Windows Node by first logging into the container
 
 
 ```shell
-oc -n openshift-windows-machine-config-operator rsh $(oc get pods -n openshift-windows-machine-config-operator -l app=winc-ssh -o name)
+$ oc -n openshift-windows-machine-config-operator rsh $(oc get pods -n openshift-windows-machine-config-operator -l app=winc-ssh -o name)
 ```
 
 Then using the provided shellscript to login to the Windows Node via nodename
@@ -69,16 +69,23 @@ e0aa2a286e42        mcr.microsoft.com/oss/kubernetes/pause:1.3.0   "cmd /S /C pa
       k8s_POD_win-webserver-549cd7495d-f6j95_default_7b3066a3-9ca9-496f-bc6e-d8fb29c251c3_0
 ```
 
-Exit out of the Windows Node
+Exit out of the Windows Node.
 
 ```shell
 PS C:\Users\Administrator> exit
 ```
 
+Also exit from the rsh session.
+
+```shell
+sh-4.4$ exit
+exit
+[ec2-user@bastion ~]$
+```
 You can create a route just like any other workload.
 
 ```shell
-$ oc expose svc/win-webserver
+$ oc expose svc/win-webserver -n default
 ```
 
 You can now access it via the route.
@@ -91,7 +98,7 @@ $ curl -s http://$(oc get route win-webserver -n default -o jsonpath='{.spec.hos
 You can `rsh` into this pod just like a Linux pod by using `oc exec`. The following command will get you a PowerShell prompt in the Windows Webserver pod.
 
 ```shell
-$ oc exec -it $(oc get pods -l app=win-webserver -o name) powershell
+$ oc exec -it $(oc get pods -l app=win-webserver -o name) -- powershell
 ```
 
 Once inside, you can see the process that's running the webserver.
@@ -100,7 +107,7 @@ Once inside, you can see the process that's running the webserver.
 PS C:\> tasklist /M /FI "IMAGENAME eq powershell.exe"  | Select-String -Pattern http
 ```
 
-Exit out of the `rsh` session before continuing.
+Exit out of the `exec` session before continuing.
 
 ```shell
 PS C:\> exit
