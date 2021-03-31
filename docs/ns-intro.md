@@ -1,6 +1,6 @@
 # Mixed Linux and Windows Workloads Introduction
 
-With Windows Containers support for OpenShift; you can run a mixed environment consisting of your Windows Containers and your Linux Containers workloads. This enables Administrators to have the freedom to run heterogeneous workloads using one platform.
+With Windows Containers support for OpenShift; you can run a mixed environment consisting of your Windows Containers and your Linux Containers. This enables Administrators to have the freedom to run heterogeneous workloads using one platform.
 
 You also have the ability to run application stacks of mixed workloads. In this section, we will show how you can run Windows workloads that work together with Linux workloads.
 

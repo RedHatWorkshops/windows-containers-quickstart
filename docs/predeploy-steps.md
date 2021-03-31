@@ -73,4 +73,12 @@ After the image is loaded in, exit the Windows Node.
 PS C:\Users\Administrator> exit
 ```
 
+Also exit from the rsh session.
+
+```shell
+sh-4.4$ exit
+exit
+[ec2-user@bastion ~]$
+```
+
 You can now deploy the sample application
