@@ -1,4 +1,4 @@
-# Accessing Windows Node
+# Accessing The Windows Node
 
 The Windows Node is installed with Windows Server 2019 Datacenter. This installaton does NOT include the familiar Windows UI. Also, since we are on AWS, RDP isn't enabled anyway. So how do you access the Windows Node?
 
@@ -88,4 +88,12 @@ Go ahead and exit the powershell session.
 
 ```shell
 PS C:\Users\Administrator> exit
+```
+
+Also exit from the rsh session.
+
+```shell
+sh-4.4$ exit
+exit
+[ec2-user@bastion ~]$
 ```
