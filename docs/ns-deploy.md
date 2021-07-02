@@ -57,21 +57,26 @@ $ export WSSHKEY=$(oc get secret cloud-private-key -n openshift-windows-machine-
 $ export WNODE=$(oc get nodes -l kubernetes.io/os=windows -o jsonpath='{.items[0].metadata.name}')
 ```
 
-The Helm Chart needed to deploy the NetCandy store is stored in  `~/windows_node_artifacts/netcandystore-1.0.1.tgz`
+Add the Red Hat Developer Demos Helm repo.
 
 ```shell
-$ ls ~/windows_node_artifacts/netcandystore-1.0.1.tgz
+helm repo add redhat-demos https://redhat-developer-demos.github.io/helm-repo
 ```
 
-> __NOTE__ If it's not in the location stated. It can be downloaded from [http://people.redhat.com/chernand/netcandystore-1.0.1.tgz](http://people.redhat.com/chernand/netcandystore-1.0.1.tgz)
-
-With the two variables exported, you can install the application stack using `helm`
+Update the repo definitions
 
 ```shell
-$ helm install ncs --namespace netcandystore \
+helm repo update
+```
+
+With the two variables exported, and the helm repo added, you can install the application stack using `helm`
+
+```shell
+helm install ncs --namespace netcandystore \
 --create-namespace --timeout=1200s \
-~/windows_node_artifacts/netcandystore-1.0.1.tgz \
+redhat-demos/netcandystore \
 --set ssh.hostkey=${WSSHKEY} --set ssh.hostname=${WNODE}
+
 ```
 
 This will look like it's "hanging" or "stuck". It's not! What's happening is that the image is getting pulled into the Windows node. As stated before, Windows containers can be very big (a "small" container is about 5GB in size), so it might take some time.
