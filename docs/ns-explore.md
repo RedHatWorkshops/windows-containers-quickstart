@@ -8,8 +8,8 @@ Verify that the NetCandy store was installed.
 
 ```shell
 $ helm ls -n netcandystore
-NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
-ncs     netcandystore   1               2021-03-31 19:54:50.576808462 +0000 UTC deployed        netcandystore-1.0.1     3.1
+NAME	NAMESPACE    	REVISION	UPDATED                                	STATUS  	CHART              	APP VERSION
+ncs 	netcandystore	1       	2021-10-26 14:57:28.624622172 -0700 PDT	deployed	netcandystore-1.0.2	4.6  
 ```
 
 There should be 3 pods running. One for the frondend called `netcandystore`, one for the categories service called `getcategories` and a DB called `mysql`.
