@@ -56,6 +56,6 @@ To see which version of the operator is running, check the CSV.
 
 ```shell
 $ oc get csv -n openshift-windows-machine-config-operator
-NAME                                     DISPLAY                           VERSION   REPLACES   PHASE
-windows-machine-config-operator.v1.0.2   Windows Machine Config Operator   1.0.2                Succeeded
+NAME                                     DISPLAY                           VERSION   REPLACES                                 PHASE
+windows-machine-config-operator.v3.1.0   Windows Machine Config Operator   3.1.0     windows-machine-config-operator.v3.0.0   Succeeded
 ```

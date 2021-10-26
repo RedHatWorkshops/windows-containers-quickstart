@@ -4,15 +4,20 @@ In this module we will deploy a sample application running a webservice on the W
 
 ## Deploy the Application
 
-Now, back on the bastion host, you will deploy the application in the `default` namespace.
+Now, back on the bastion host, you will deploy the application in a new namespace called `windows-workloads`.
+
+First create the namespace
 
 ```shell
-$ oc create -n default -f \
-https://gist.githubusercontent.com/suhanime/683ee7b5a2f55c11e3a26a4223170582/raw/d893db98944bf615fccfe73e6e4fb19549a362a5/WinWebServer.yaml
+oc new-project windows-workloads
 ```
 
-> In order to deploy into a *__different__* namespace, SCC must be disabled in that namespace. This should *__NEVER__* be used in production, and any namespace that this has been done to *__SHOULD NOT__* be used to run Linux pods.
-> To skip SCC for a namespace the label `openshift.io/run-level = 1` should be applied to the namespace. This will apply to both Linux and windows pods, and thus (again) Linux pods *__SHOULD NOT__* be deployed into this namespace.
+Next, deploy the sample application.
+
+```shell
+$ oc create -n windows-workloads -f \
+https://gist.githubusercontent.com/suhanime/683ee7b5a2f55c11e3a26a4223170582/raw/d893db98944bf615fccfe73e6e4fb19549a362a5/WinWebServer.yaml
+```
 
 Once deployed you can explore everything that's been created
 
@@ -21,7 +26,7 @@ Once deployed you can explore everything that's been created
 The application should have deployed as a pod
 
 ```shell
-$ oc get pods -n default
+$ oc get pods -n windows-workloads
 NAME                             READY   STATUS    RESTARTS   AGE
 win-webserver-549cd7495d-f6j95   1/1     Running   0          5m58s
 ```
@@ -29,32 +34,32 @@ win-webserver-549cd7495d-f6j95   1/1     Running   0          5m58s
 This pod was created by a deployment. Remember to note that it has a toleration so it can run on the Windows Node.
 
 ```shell
-$ oc get deploy win-webserver -n default -o jsonpath='{.spec.template.spec.tolerations}' | jq -r
+$ oc get deploy win-webserver -n windows-workloads -o jsonpath='{.spec.template.spec.tolerations}' | jq -r
 ```
 
 If you take a look at the pod, you see that it's running on the Windows Node.
 
 ```shell
-$ oc get pods -n default -o wide
-NAME                             READY   STATUS    RESTARTS   AGE     IP           NODE                                        NOMINATED NODE   READINESS GATES
-win-webserver-549cd7495d-f6j95   1/1     Running   0          8m14s   10.132.0.2   ip-10-0-147-19.us-east-2.compute.internal   <none>           <none>
+$ oc get pods -n windows-workloads -o wide
+NAME                             READY   STATUS    RESTARTS   AGE    IP           NODE                         NOMINATED NODE   READINESS GATES
+win-webserver-549cd7495d-k7zqt   1/1     Running   0          100s   10.132.1.2   ip-10-0-138-9.ec2.internal   <none>           <none>
 
 $ oc get nodes -l kubernetes.io/os=windows
-NAME                                        STATUS   ROLES    AGE    VERSION
-ip-10-0-147-19.us-east-2.compute.internal   Ready    worker   2d1h   v1.19.0-rc.2.1023+f5121a6a6a02dd
+NAME                         STATUS   ROLES    AGE   VERSION
+ip-10-0-138-9.ec2.internal   Ready    worker   22m   v1.21.1-1398+98073871f173ba
 ```
 
 Login to the Windows Node by first logging into the container
 
 
 ```shell
-$ oc -n openshift-windows-machine-config-operator rsh $(oc get pods -n openshift-windows-machine-config-operator -l app=winc-ssh -o name)
+$ oc -n openshift-windows-machine-config-operator rsh deploy/winc-ssh
 ```
 
 Then using the provided shellscript to login to the Windows Node via nodename
 
 ```shell
-sh-4.4$ sshcmd.sh ip-10-0-147-19.us-east-2.compute.internal
+sh-4.4$ sshcmd.sh ip-10-0-138-9.ec2.internal
 ```
 
 Once in the Windows Node, see running docker images.
@@ -85,20 +90,20 @@ exit
 You can create a route just like any other workload.
 
 ```shell
-$ oc expose svc/win-webserver -n default
+$ oc expose svc/win-webserver -n windows-workloads
 ```
 
 You can now access it via the route.
 
 ```shell
-$ curl -s http://$(oc get route win-webserver -n default -o jsonpath='{.spec.host}')
+$ curl -s http://$(oc get route win-webserver -n windows-workloads -o jsonpath='{.spec.host}')
 <html><body><H1>Windows Container Web Server</H1></body></html>
 ```
 
 You can `rsh` into this pod just like a Linux pod by using `oc exec`. The following command will get you a PowerShell prompt in the Windows Webserver pod.
 
 ```shell
-$ oc exec -it $(oc get pods -l app=win-webserver -o name) -- powershell
+$ oc -n windows-workloads exec -it deploy/win-webserver -- powershell
 ```
 
 Once inside, you can see the process that's running the webserver.

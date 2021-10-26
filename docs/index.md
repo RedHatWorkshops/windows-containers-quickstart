@@ -1,6 +1,6 @@
 # OpenShift Windows Containers
 
-Welcome to the OpenShift Windows Containers quickstart guide!
+Welcome to the OpenShift Windows Containers quickstart demo guide!
 
 This guide is meant to help you to see what you can (and also cannot) do with Windows Containers on OpenShift 4.6. This will eventually turn into a workshop the closer we get to GA.
 

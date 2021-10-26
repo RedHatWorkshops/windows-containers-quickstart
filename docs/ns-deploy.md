@@ -110,7 +110,7 @@ Major  Minor  Build  Revision
 
 This means it's deployed successfully!
 
-> __NOTE__ This helm chart can be deployed on any cluster running **Windows Server 2019 Release 1809**. If you want to deploy it with **Windows Server 1909** (on VMware), use this image instead: `quay.io/gfontana/netcandystore:servercore1909`. To do so, use the command below when installing the helm chart:
+> __NOTE__ This helm chart can be deployed on any cluster running **Windows Server 2019 Release 1809**. If you want to deploy it with **Windows Server 2019 Release 1909** (on VMware), use this image instead: `quay.io/gfontana/netcandystore:servercore1909`. To do so, use the command below when installing the helm chart:
 
 ```shell
 helm install ncs --namespace netcandystore \
@@ -118,5 +118,4 @@ helm install ncs --namespace netcandystore \
 redhat-demos/netcandystore \
 --set ssh.hostkey=${WSSHKEY} --set ssh.hostname=${WNODE} \
 --set netcandy.image=quay.io/gfontana/netcandystore:servercore1909
-
 ```
