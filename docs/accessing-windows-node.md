@@ -19,14 +19,14 @@ This host has everything needed in order to ssh into your Windows Node. First, g
 
 ```shell
 $ oc get nodes -l kubernetes.io/os=windows
-NAME                           STATUS   ROLES    AGE     VERSION
-ip-10-0-134-193.ec2.internal   Ready    worker   3h38m   v1.19.0-rc.2.1023+f5121a6a6a02dd
+NAME                         STATUS   ROLES    AGE   VERSION
+ip-10-0-138-9.ec2.internal   Ready    worker   14m   v1.21.1-1398+98073871f173b
 ```
 
 Then, you can `rsh` into this container with the following command:
 
 ```shell
-oc -n openshift-windows-machine-config-operator rsh $(oc get pods -n openshift-windows-machine-config-operator -l app=winc-ssh -o name)
+oc -n openshift-windows-machine-config-operator rsh deploy/winc-ssh
 ```
 
 This will give you a shell prompt:
@@ -38,7 +38,7 @@ sh-4.4$
 You can run the ssh script (built into the contianer) providing the Windows Node nodename as an argument. Example:
 
 ```shell
-sh-4.4$ sshcmd.sh ip-10-0-134-193.ec2.internal
+sh-4.4$ sshcmd.sh ip-10-0-138-9.ec2.internal
 ```
 
 This should drop you into a `PowerShell` session
