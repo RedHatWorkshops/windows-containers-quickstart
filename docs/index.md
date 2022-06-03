@@ -1,8 +1,8 @@
 # OpenShift Windows Containers
 
-Welcome to the OpenShift Windows Containers quickstart guide!
+Welcome to the OpenShift Windows Containers quickstart demo guide!
 
-This guide is meant to help you to see what you can (and also cannot) do with Windows Containers on OpenShift 4.6. This will eventually turn into a workshop the closer we get to GA.
+This guide is meant to help you to see what you can (and also cannot) do with Windows Containers on OpenShift. This will eventually turn into a workshop the closer we get to GA.
 
 A few things before we get started; You should have gotten an email from the RHPDS system. I'm assuming you have or else how else would you be reading this? :)
 

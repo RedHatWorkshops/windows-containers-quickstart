@@ -29,14 +29,14 @@ This will correspond to a node on the platform.
 
 ```shell
 $ oc get nodes -l kubernetes.io/os=windows
-NAME                                        STATUS   ROLES    AGE   VERSION
-ip-10-0-147-19.us-east-2.compute.internal   Ready    worker   47h   v1.19.0-rc.2.1023+f5121a6a6a02dd
+NAME                         STATUS   ROLES    AGE   VERSION
+ip-10-0-138-9.ec2.internal   Ready    worker   31m   v1.21.1-1398+98073871f173ba
 ```
 
 Note, that this node has a taint on it, so you need to keep that in mind when trying to deploy workloads on the Windows Node.
 
 ```shell
-$ oc describe node ip-10-0-147-19.us-east-2.compute.internal | grep -i Taint
+$ oc describe node ip-10-0-138-9.ec2.internal | grep -i Taint
 Taints:             os=Windows:NoSchedule
 ```
 
@@ -64,17 +64,16 @@ $ watch "oc get nodes -l kubernetes.io/os=windows"
 Another thing you can do is (in another window) watch the WMCO logs with the following command:
 
 ```shell
-oc logs -n openshift-windows-machine-config-operator -f \
-$(oc get pods -n openshift-windows-machine-config-operator -l name=windows-machine-config-operator -o name)
+oc logs deploy/windows-machine-config-operator -n openshift-windows-machine-config-operator -f
 ```
 
 After a while you should have two Windows nodes
 
 ```shell
 $ oc get nodes -l kubernetes.io/os=windows
-NAME                                         STATUS   ROLES    AGE     VERSION
-ip-10-0-147-171.us-east-2.compute.internal   Ready    worker   5m33s   v1.19.0-rc.2.1023+f5121a6a6a02dd
-ip-10-0-147-19.us-east-2.compute.internal    Ready    worker   47h     v1.19.0-rc.2.1023+f5121a6a6a02dd
+NAME                           STATUS   ROLES    AGE     VERSION
+ip-10-0-130-249.ec2.internal   Ready    worker   4m56s   v1.21.1-1398+98073871f173ba
+ip-10-0-138-9.ec2.internal     Ready    worker   46m     v1.21.1-1398+98073871f173ba
 ```
 
 Delete a node the same way, by scaling it down.
