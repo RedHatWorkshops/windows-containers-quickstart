@@ -62,16 +62,49 @@ Then using the provided shellscript to login to the Windows Node via nodename
 sh-4.4$ sshcmd.sh ip-10-0-138-9.ec2.internal
 ```
 
-Once in the Windows Node, see running docker images.
+Now log into the Windows Node using the hostname. Example:
 
 ```shell
-PS C:\Users\Administrator> docker ps
-CONTAINER ID        IMAGE                                          COMMAND                  CREATED             STATUS              PORTS
-      NAMES
-8d2aec639ec3        715aaeac112d                                   "powershell.exe -com…"   11 minutes ago      Up 11 minutes
-      k8s_windowswebserver_win-webserver-549cd7495d-f6j95_default_7b3066a3-9ca9-496f-bc6e-d8fb29c251c3_0
-e0aa2a286e42        mcr.microsoft.com/oss/kubernetes/pause:1.3.0   "cmd /S /C pauseloop…"   11 minutes ago      Up 11 minutes
-      k8s_POD_win-webserver-549cd7495d-f6j95_default_7b3066a3-9ca9-496f-bc6e-d8fb29c251c3_0
+bash-4.4$ sshcmd.sh ip-10-0-140-10.ec2.internal
+```
+
+To view Windows containers running on the node, you need to install the `crictl` tool
+to interact with the containerd runtime.
+
+```shell
+$ProgressPreference = "SilentlyContinue"; wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.27.0/crictl-v1.27.0-windows-amd64.tar.gz -o crictl-v1.27.0-windows-amd64.tar.gz; tar -xvf crictl-v1.27.0-windows-amd64.tar.gz -C C:\Windows\
+```
+Now lets configure crictl.
+
+```shell
+crictl config --set runtime-endpoint="npipe:\\\\.\\pipe\\containerd-containerd"
+```
+
+Here, you can see the Windows container running on the node.
+
+```shell
+crictl ps
+```
+
+Here you'll see the Container running. Here is an example output.
+
+```shell
+CONTAINER           IMAGE               CREATED             STATE               NAME                ATTEMPT             POD ID              POD
+ac18c2aa692cf       66a1a48cbc112       2 minutes ago       Running             windowswebserver    0                   a2f1b580c659c       win-webserver-7b76494c5-s9m2q
+```
+
+You can also see the images downloaded on the host.
+
+```shell
+crictl images
+```
+
+You should see the following output.
+
+```shell
+IMAGE                                    TAG                 IMAGE ID            SIZE
+mcr.microsoft.com/oss/kubernetes/pause   3.6                 9adbbe02501b1       104MB
+mcr.microsoft.com/windows/servercore     ltsc2019            66a1a48cbc112       2.02GB
 ```
 
 Exit out of the Windows Node.
