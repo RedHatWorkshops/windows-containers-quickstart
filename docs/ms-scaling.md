@@ -84,10 +84,10 @@ $ oc scale machineset cluster-lax-e35b-tmk54-windows-us-east-2a --replicas=1 -n 
 
 ## MachineSet Config
 
-A copy of the YAML used for the MachineSet is found on the server. Take a look at this config.
+Please take a look at the YAML used for the MachineSet. Take a look at this config.
 
 ```shell
-$ cat ~/windows_node_artifacts/windows-ms.yaml
+$ oc get machineset cluster-lax-e35b-tmk54-windows-us-east-2a -n openshift-machine-api -o yaml
 ```
 
 For more information on how this is formatted, consult the [official documentation](https://docs.openshift.com/container-platform/latest/windows_containers/creating_windows_machinesets/creating-windows-machineset-aws.html)
