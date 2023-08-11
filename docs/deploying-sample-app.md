@@ -139,7 +139,7 @@ Once inside, you can see the process that's running the webserver.
 PS C:\> tasklist /M /FI "IMAGENAME eq powershell.exe"  | Select-String -Pattern http
 ```
 
-Exit out of the `exec` session before continuing.
+Exit out of the `exec` session before continuing. 
 
 ```shell
 PS C:\> exit
