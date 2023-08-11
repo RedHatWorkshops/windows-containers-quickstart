@@ -62,12 +62,6 @@ Then using the provided shellscript to login to the Windows Node via nodename
 sh-4.4$ sshcmd.sh ip-10-0-138-9.ec2.internal
 ```
 
-Now log into the Windows Node using the hostname. Example:
-
-```shell
-bash-4.4$ sshcmd.sh ip-10-0-140-10.ec2.internal
-```
-
 To view Windows containers running on the node, you need to install the `crictl` tool
 to interact with the containerd runtime.
 
