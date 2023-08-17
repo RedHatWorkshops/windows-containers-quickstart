@@ -1,5 +1,5 @@
 #!/bin/bash
-awscli=/usr/local/bin/aws
+awscli=/usr/local/aws/bin/aws
 jqcli=/usr/bin/jq
 windowsmsfile=${HOME}/windows-ms.yaml
 
