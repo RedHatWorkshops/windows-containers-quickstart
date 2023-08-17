@@ -69,6 +69,81 @@ Update the repo definitions
 helm repo update
 ```
 
+
+------
+I have added these command below based on changes to the workshop to test netcandystore:
+
+Please copy and paste this yaml below into a file called: restrictedfsgroupscc.yaml
+
+```shell
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: null
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: MustRunAs
+  ranges: 
+  - max: 20000
+    min: 10000 
+groups:
+- system:authenticated
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: restricted denies access to all host features and requires
+      pods to be run with a UID, and SELinux context that are allocated to the namespace.  This
+      is the most restrictive SCC and it is used by default for authenticated users.
+    release.openshift.io/create-only: "true"
+  creationTimestamp: "2020-10-07T00:59:04Z"
+  generation: 1
+  name: restrictedfsgroup
+  resourceVersion: "938"
+  selfLink: /apis/security.openshift.io/v1/securitycontextconstraints/restricted
+  uid: 9b80a629-a5c3-4507-bfb0-c480df9967ba
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+- KILL
+- MKNOD
+- SETUID
+- SETGID
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+users: []
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- projected
+- secret
+```
+
+Next we will use this command below to create a Kubernetes resource with specific security restrictions and context constraints within the OpenShift cluster.
+
+```shell
+oc create -f ./restrictedfsgroupscc.yaml
+```
+
+Next, we’ll allow a specific group of service accounts (in this case, those related to Microsoft SQL Server) to follow the strict security rules defined by the "restrictedfsgroup" Security Context Constraints in the OpenShift system.
+
+```shell
+oc adm policy add-scc-to-group restrictedfsgroup system:serviceaccounts:mssql
+```
+
+I have added these command above based on changes to the workshop to test netcandystore
+------
+
 With the two variables exported, and the helm repo added, you can install the application stack using `helm`
 
 ```shell
