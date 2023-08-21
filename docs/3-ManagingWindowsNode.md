@@ -66,3 +66,11 @@ If you have two nodes please delete the oldest node:
 ```shell
 oc delete node ip-10-0-231-225.us-east-2.compute.internal
 ```
+
+
+
+<br/><br/><br/>
+<br/><br/><br/>
+<br/><br/><br/>
+
+
