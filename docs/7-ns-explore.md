@@ -100,6 +100,9 @@ Finally, you learned how you can used mixed workloads made up of Linux
 and Windows containers.
 
 
+<br/><br/><br/>
+<br/><br/><br/>
+<br/><br/><br/>
 
 
 
