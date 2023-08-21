@@ -134,3 +134,10 @@ The output should look something like this.
 NAME                          STATUS   ROLES    AGE   VERSION
 ip-10-0-140-10.ec2.internal   Ready    worker   22m   v1.20.0-1081+d0b1ad449a08b3
 ```
+
+
+<br/><br/><br/>
+<br/><br/><br/>
+<br/><br/><br/>
+
+
