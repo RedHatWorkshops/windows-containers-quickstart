@@ -173,3 +173,10 @@ You should now have two Pods running.
 ```shell
 oc get pods -n winc-sample
 ```
+
+
+<br/><br/><br/>
+<br/><br/><br/>
+<br/><br/><br/>
+
+
