@@ -47,7 +47,7 @@ So here, the nodeSelector will place this container on the Windows Node. Further
 One last thing to look at. Take a look at the container that is being deployed.
 
 ```shell
-grep -A 1000 'name: win-webserver' winc-sample-workload.yaml | grep 'image:' | awk '{print $2}'
+grep -A 1000 'name: win-webserver' windows-containers-quickstart/support/winc-sample-workload.yaml | grep 'image:' | awk '{print $2}'
 ```
 
 Apply this YAML file to deploy the sample workload.
