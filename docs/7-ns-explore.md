@@ -61,13 +61,6 @@ oc get pods -n netcandystore -l app=getcategories -o wide
 oc get nodes -l kubernetes.io/os=linux
 ```
 
-Now, looking at the backend, you can see it’s running on a Linux node.
-
-```shell
-oc get pods -n netcandystore -l app=getcategories -o wide
-oc get nodes -l kubernetes.io/os=linux
-```
-
 The MSSQL Database is also running on the Linux node.
 
 ```shell
