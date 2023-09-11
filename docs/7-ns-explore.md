@@ -25,7 +25,7 @@ oc get pods -n netcandystore
 You can watch the progress of your pod here
 
 ```shell
-kubectl get events --field-selector involvedObject.name=<netcandystore-78d78677c8-rlxrs> -n netcandystore --watch
+oc get events --field-selector involvedObject.name=<netcandystore-78d78677c8-rlxrs> -n netcandystore --watch
 ```
 
 > :warning: **WARNING:** Please do **not** perform the following steps if your NetCandyStore pods are currently running. If the NetCandyStore pod is experiencing any issues, you may consider deleting and redeploying it.
