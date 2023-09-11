@@ -61,7 +61,7 @@ oc get nodes -l kubernetes.io/os=windows
 
 > **WARNING:** Please only proceed with the below steps if you have more than one node.
 
-If you have two nodes please delete the oldest node:
+If after a while you still have two nodes please delete the oldest node:
 
 ```shell
 oc delete node ip-10-0-231-225.us-east-2.compute.internal
