@@ -66,14 +66,14 @@ Get-Process | ?{ $_.ProcessName -match "daemon|exporter|kube|overlay|containerd"
 You should see the following output.
 
 ```shell
-Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
--------  ------    -----      -----     ------     --  -- -----------
-    171      14    32780      30652       3.63   5484   0 containerd
-    252      17    33712      37144       1.61    292   0 hybrid-overlay-node
-    605      31    60244      81452      47.27    756   0 kubelet
-    274      21    38404      42992       5.53   5256   0 kube-proxy
-    472      23    41572      38320      16.23   1140   0 windows_exporter
-    205      16    31880      32128       1.55    592   0 windows-instance-config-daemon
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                
+-------  ------    -----      -----     ------     --  -- -----------                
+    211      16    36544      33644      50.73   4556   0 containerd                 
+    307      19    39648      41776      18.14   2468   0 hybrid-overlay-node        
+    608      33    69544      90616     794.98   6040   0 kubelet                    
+    340      24    42584      45592      49.63   6920   0 kube-proxy                 
+    327      18    30228      23868       0.77   4124   0 windows_exporter           
+    270      18    35088      33172      16.84   5852   0 windows-instance-config-daemon   
 ```
 
 These are the main components needed to run a Windows Node. Remember that this node is managed the same way as a Linux node, Via the MachineAPI; so you won’t have to do much with this Windows Node.
