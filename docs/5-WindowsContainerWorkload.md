@@ -53,7 +53,7 @@ grep -A 1000 'name: win-webserver' windows-containers-quickstart/support/winc-sa
 Apply this YAML file to deploy the sample workload.
 
 ```shell
-oc apply -f windows-containers-quickstart/support/
+oc apply -f windows-containers-quickstart/support/winc-sample-workload.yaml
 ```
 
 Wait for the deployment to finish rolling out. This can take 5-10 minutes as Windows images are large in size.
