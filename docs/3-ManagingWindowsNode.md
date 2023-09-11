@@ -59,7 +59,7 @@ After some time, you should be back at 1 Windows node.
 oc get nodes -l kubernetes.io/os=windows
 ```
 
-> :warning: **WARNING:** Please only proceed with the below steps if you have more than one node.
+> **WARNING:** Please only proceed with the below steps if you have more than one node.
 
 If you have two nodes please delete the oldest node:
 
