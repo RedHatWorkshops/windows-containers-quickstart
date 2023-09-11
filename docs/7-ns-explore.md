@@ -19,9 +19,12 @@ ncs     netcandystore   1               2021-03-31 19:54:50.576808462 +0000 UTC 
 
 There should be 3 pods running for this application. One for the frondend called netcandystore, one for the categories service called getcategories and a DB called mysql.
 
+If the helm installation finishes quickly, please examine the pods. It might be necessary to wait for approximately 10-20 minutes for this specific pod to become operational. When you run the command `"oc describe pod <netcandystore-78d78677c8-jmhtg> -n netcandystore` , you will be able to observe that it is currently retrieving the NCS image from quay.io.
+
 ```shell
 oc get pods -n netcandystore
 ```
+
 You can watch the progress of your pod here
 
 ```shell
