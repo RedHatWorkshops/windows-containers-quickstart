@@ -11,7 +11,7 @@ $ sudo yum install python3
 sudo yum install python3-pip
 sudo pip3 install yq
 ```
-Install helm 3
+This command is used to download a script that installs Helm 3, make the script executable, and then run the script to install Helm 3 on your system.
 
 ```shell
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
