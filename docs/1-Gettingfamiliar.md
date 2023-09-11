@@ -10,7 +10,13 @@ To start we are going to Install Python 3, Pip, yq and helm. We need these in or
 $ sudo yum install python3
 sudo yum install python3-pip
 sudo pip3 install yq
-curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+```
+Install helm 3
+
+```shell
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 ```
 
 Next we will be cloning a repo from github we will be using some yaml files from:
