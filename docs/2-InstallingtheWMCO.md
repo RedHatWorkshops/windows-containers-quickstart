@@ -128,11 +128,13 @@ oc get nodes -l kubernetes.io/os=windows
 
 Note: It’ll take up to 15 mintues to see the Windows Node appear. It’s recommneded to run a watch on oc get nodes -l kubernetes.io/os=windows so you can see when the node appears. Now will be a good time to take a break.
 
-The output should look something like this.
+The output should look something like this. You should see two nodes.
 
 ```shell
-NAME                          STATUS   ROLES    AGE   VERSION
-ip-10-0-140-10.ec2.internal   Ready    worker   22m   v1.20.0-1081+d0b1ad449a08b3
+NAME                                         STATUS   ROLES       AGE      VERSION
+
+ip-10-0-143-170.us-east-2.compute.internal   Ready    worker      4h30m   v1.25.8+37a9a08-dirty
+ip-10-0-145-103.us-east-2.compute.internal   Ready    worker      2m43s   v1.25.8+37a9a08-dirty
 ```
 
 
