@@ -143,6 +143,12 @@ If after a while you still have two nodes please delete the oldest node:
 oc delete node <ip-10-0-231-225.us-east-2.compute.internal>
 ```
 
+Confirm that you only have one node
+
+```shell
+oc get nodes -l kubernetes.io/os=windows
+```
+
 <br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
