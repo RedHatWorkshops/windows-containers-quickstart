@@ -39,16 +39,16 @@ $ oc get secret -n openshift-windows-machine-config-operator cloud-private-key
 
 Once the WMCO Operator is up and running, and the ssh key loaded into the cluster as a secret, you can now deploy a Windows Node. How do you build a Windows Node? The same way you create OpenShift Linux nodes, with the MachineAPI
 
+We need to change the permissions using this command.
+
+```shell
+chmod +x windows-containers-quickstart/support/generate-windows-ms.sh
+```
+
 First, we will be creating a MachineSet for Windows Nodes. We will then explore important sections of the YAML.
 
 ```shell
 $ windows-containers-quickstart/support/generate-windows-ms.sh
-```
-
-If you get a permissions denied error you may need to change permissions using this command. Once changing the permissions below please run the above command again before proceeding.
-
-```shell
-chmod +x windows-containers-quickstart/support/generate-windows-ms.sh
 ```
 
 This should create the windows-ms.yaml file in your home directory.
