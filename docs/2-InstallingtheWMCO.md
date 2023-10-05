@@ -136,7 +136,7 @@ You can exit by pressing kbd:[Ctrl+C].
 oc get nodes -l kubernetes.io/os=windows
 ```
 
-Note: It’ll take up to 15 mintues to see the Windows Node appear. It’s recommneded to run a watch on oc get nodes -l kubernetes.io/os=windows so you can see when the node appears. Now will be a good time to take a break.
+Note: It’ll take up to 15-20 mintues to see the Windows Node appear. It’s recommneded to run a watch on oc get nodes -l kubernetes.io/os=windows so you can see when the node appears. Now will be a good time to take a break.
 
 The output should look something like this. Wait until you have two nodes.
 
