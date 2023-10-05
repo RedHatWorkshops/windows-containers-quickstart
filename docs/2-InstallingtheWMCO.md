@@ -138,7 +138,7 @@ oc get nodes -l kubernetes.io/os=windows
 
 Note: It’ll take up to 15 mintues to see the Windows Node appear. It’s recommneded to run a watch on oc get nodes -l kubernetes.io/os=windows so you can see when the node appears. Now will be a good time to take a break.
 
-The output should look something like this. You will either have one or two nodes.
+The output should look something like this. Wait until you have two nodes.
 
 ```shell
 NAME                                         STATUS   ROLES       AGE      VERSION
@@ -149,7 +149,7 @@ ip-10-0-145-103.us-east-2.compute.internal   Ready    worker      2m43s   v1.25.
 
 > **WARNING:** Please only proceed with the below steps if you have more than one node.
 
-16. If after a while  (15/20 mins) you still have two nodes please delete the oldest node:
+16. Once you have two nodes please delete the oldest node:
 
 ```shell
 oc delete node <ip-10-0-231-225.us-east-2.compute.internal>
