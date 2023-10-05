@@ -12,7 +12,7 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-2. Next we will be cloning a repo from github we will be using some yaml files from:
+2. Next, we'll clone a repository from GitHub and utilize certain YAML files from it:
 
 ```shell
 git clone --single-branch --branch dev https://github.com/RedHatWorkshops/windows-containers-quickstart.git
