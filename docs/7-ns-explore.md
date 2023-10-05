@@ -88,7 +88,7 @@ console  console-openshift-console.apps.cluster-whpkq.whpkq.sandbox520.opentlc.c
  
 The frontpage should look like this, feel free to play around with the application!
 
-Picture
+![ncs app](images/ncs.png)
 
 ## Conclusion
 
