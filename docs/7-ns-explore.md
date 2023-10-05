@@ -84,7 +84,13 @@ console  console-openshift-console.apps.cluster-whpkq.whpkq.sandbox520.opentlc.c
 
 9. Please login with the the admin creds on the page you started this workshop from.
 
-10. Once there please navigate to Networking -> Routes and then you can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
+![OpenShift Console](images/openshiftconsole.png)
+
+11. Once there please navigate to Networking -> Routes and then you can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
+
+![Project NCS](images/projectncs.png)
+
+![Routes NCS](images/routesncs.png)
  
 The frontpage should look like this, feel free to play around with the application!
 
