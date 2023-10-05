@@ -61,6 +61,7 @@ oc get nodes -l kubernetes.io/os=windows
 
 
 
+
 <br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
