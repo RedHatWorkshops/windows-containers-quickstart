@@ -151,7 +151,7 @@ Confirm that you only have one node (the youngest)
 oc get nodes -l kubernetes.io/os=windows
 ```
 
-we'll show you how you can scale those nodes up and down next.
+We'll show you how you can scale those nodes up and down next.
 
 
 
