@@ -17,15 +17,15 @@ Once the operator is up and running. You are ready to install a Windows Node.
 
 ## Installing a Windows Node.
 
-In order for the WMCO to setup the Windows Node, it will need an ssh key to the cloud provider. The cloud provider will then mint a new keypair based on the private key provided. The WMCO will then use this key to login to the Windows Node and set it up as an OpenShift Node.
+In order for the WMCO to setup the Windows Node, it will need an ssh key to the cloud provider. The cloud provider will then mint a new keypair based on the private key provided. The WMCO will then use this key to login to the Windows Node and set it up as an OpenShift Node. We have already done that so there is no need for you to do that.
 
-Generate an ssh key for the WMCO to use:
+Generate an ssh key for the WMCO to use (we have already done this step for you):
 
 ```shell
 $ ssh-keygen -t rsa -f ${HOME}/.ssh/winkey -q -N ''
 ```
 
-Once you’ve generated the key, add it as a secret to the openshift-windows-machine-config-operator namespace.
+Once you’ve generated the key, add it as a secret to the openshift-windows-machine-config-operator namespace (we have already done this step for you).
 
 ```shell
 $ oc create secret generic cloud-private-key --from-file=private-key.pem=${HOME}/.ssh/winkey -n openshift-windows-machine-config-operator
