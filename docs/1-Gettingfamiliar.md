@@ -1,10 +1,10 @@
 In this module, we'll get familiar with the cluster and the install of the Windows Node. If you haven't done already, login to the bastion node provided by the RHPDS email.
 
 ```shell
-$ ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
+ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
 ```
 
-This command is used to download a script that installs Helm 3, make the script executable, and then run the script to install Helm 3 on your system.
+1. This command is used to download a script that installs Helm 3, make the script executable, and then run the script to install Helm 3 on your system.
 
 ```shell
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -12,39 +12,39 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-Next we will be cloning a repo from github we will be using some yaml files from:
+2. Next we will be cloning a repo from github we will be using some yaml files from:
 
 ```shell
-$ git clone --single-branch --branch dev https://github.com/RedHatWorkshops/windows-containers-quickstart.git
+git clone --single-branch --branch dev https://github.com/RedHatWorkshops/windows-containers-quickstart.git
 ```
 
-Before proceeding, make sure you’re admin, you will find your login details on your workshop deployment:
+3. Before proceeding, make sure you’re admin, you will find your login details on your workshop deployment:
 
 ```shell
-$ oc login -u admin -p {{ ADMIN_PASSWORD }}
+oc login -u admin -p {{ ADMIN_PASSWORD }}
 ```
 
-The first requisite is that you must be running OpenShift version 4.6 or newer. This cluster should have been installed at a supported version.
+4. The first requisite is that you must be running OpenShift version 4.6 or newer. This cluster should have been installed at a supported version.
 
 ```shell
-$ oc version
+oc version
 ```
 
-The next requisite is that the cluster must be installed with OVNKubernetes as the SDN for OpenShift. This can only be done at install time in the install-config.yaml file. This file is stored on the cluster after install. Take a look at the setting.
+5. The next requisite is that the cluster must be installed with OVNKubernetes as the SDN for OpenShift. This can only be done at install time in the install-config.yaml file. This file is stored on the cluster after install. Take a look at the setting.
 
 ```shell
-$ oc extract cm/cluster-config-v1 -n kube-system --to=- | awk '/networkType:/{print $2}'
+oc extract cm/cluster-config-v1 -n kube-system --to=- | awk '/networkType:/{print $2}'
 ```
 
 This should output OVNKubernetes as the network type.
 
-The next requisite is the cluster must be set up with overlay hybrid networking. This is another step that can only be done at install time. You can verify that the configuration has been done by running the following:
+6. The next requisite is the cluster must be set up with overlay hybrid networking. This is another step that can only be done at install time. You can verify that the configuration has been done by running the following:
 
 ```shell
-$ oc get network.operator cluster -o yaml | awk '/ovnKubernetesConfig:/{p=1} p&&/^    hybridClusterNetwork:/{print; p=0} p'
+oc get network.operator cluster -o yaml | awk '/ovnKubernetesConfig:/{p=1} p&&/^    hybridClusterNetwork:/{print; p=0} p'
 ```
 
-The output should look like this. As you can see, the hybridOverlayConfig was set up. This is the overlay network setup on the Windows Node.
+7. The output should look like this. As you can see, the hybridOverlayConfig was set up. This is the overlay network setup on the Windows Node.
 
 ```shell
     ovnKubernetesConfig:
