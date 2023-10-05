@@ -72,12 +72,11 @@ To obtain the URL for the NetCandyStore, please navigate to your OpenShift Conso
 ```shell
 oc get routes -n openshift-console
 ```
+Please copy and paste the URL to get to the OpenShift console.
 
 ```shell
-[lab-user@bastion ~]$ oc get routes -n openshift-console
 NAME        HOST/PORT     PATH   SERVICES    PORT    TERMINATION          WILDCARD
-console
-*console-openshift-console.apps.cluster-whpkq.whpkq.sandbox520.opentlc.com*            console     https   reencrypt/Redirect   None
+console  console-openshift-console.apps.cluster-whpkq.whpkq.sandbox520.opentlc.com            console     https   reencrypt/Redirect   None
 ```
 
 Please login with the the admin creds on the page you started this workshop from.
