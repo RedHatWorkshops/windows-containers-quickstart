@@ -86,7 +86,7 @@ console  console-openshift-console.apps.cluster-whpkq.whpkq.sandbox520.opentlc.c
 
 ![OpenShift Console](images/openshiftconsole.png)
 
-11. Once there please navigate to Networking -> Routes and then you can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
+10. Once there please navigate to Networking -> Routes and then you can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
 
 ![Project NCS](images/projectncs.png)
 
