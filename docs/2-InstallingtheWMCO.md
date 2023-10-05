@@ -137,6 +137,8 @@ ip-10-0-143-170.us-east-2.compute.internal   Ready    worker      4h30m   v1.25.
 ip-10-0-145-103.us-east-2.compute.internal   Ready    worker      2m43s   v1.25.8+37a9a08-dirty
 ```
 
+> **WARNING:** Please only proceed with the below steps if you have more than one node.
+
 If after a while you still have two nodes please delete the oldest node:
 
 ```shell
