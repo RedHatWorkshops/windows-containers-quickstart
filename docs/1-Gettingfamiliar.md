@@ -1,57 +1,49 @@
 In this module, we'll get familiar with the cluster and the install of the Windows Node. If you haven't done already, login to the bastion node provided by the RHPDS email.
 
 ```shell
-$ ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
+ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
 ```
 
-To start we are going to Install Python 3, Pip, yq and helm. We need these in order to install yq. We will be using this throughout the module.
+If you examine these two commands, you will observe that this demonstration already includes a Windows node and a Windows secret configuration. To provide you with the opportunity to set up these components manually, we will execute the following script to remove them.
 
 ```shell
-$ sudo yum install python3
-sudo yum install python3-pip
-sudo pip3 install yq
-```
-This command is used to download a script that installs Helm 3, make the script executable, and then run the script to install Helm 3 on your system.
-
-```shell
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
+oc get nodes -l kubernetes.io/os=windows
+oc get secret -n openshift-windows-machine-config-operator cloud-private-key
 ```
 
-Next we will be cloning a repo from github we will be using some yaml files from:
+* This script will setup your workshop by removing the Windows node from your OpenShift cluster, removing the windows secret, installing Helm, a tool for managing Kubernetes applications. It will also clone a workshop repo that we will be using throughout this demo. It will use oc and curl commands to perform these tasks. 
 
 ```shell
-$ git clone --single-branch --branch dev https://github.com/RedHatWorkshops/windows-containers-quickstart.git
+./setup-windows-demo.sh
 ```
 
-Before proceeding, make sure you’re admin, you will find your login details on your workshop deployment:
+* Before proceeding, make sure you’re admin, you will find your login details on your workshop deployment:
 
 ```shell
-$ oc login -u admin -p {{ ADMIN_PASSWORD }}
+oc login -u admin -p {{ ADMIN_PASSWORD }}
 ```
 
-The first requisite is that you must be running OpenShift version 4.6 or newer. This cluster should have been installed at a supported version.
+* The first requisite is that you must be running OpenShift version 4.6 or newer. This cluster should have been installed at a supported version.
 
 ```shell
-$ oc version
+oc version
 ```
 
-The next requisite is that the cluster must be installed with OVNKubernetes as the SDN for OpenShift. This can only be done at install time in the install-config.yaml file. This file is stored on the cluster after install. Take a look at the setting.
+* The next requisite is that the cluster must be installed with OVNKubernetes as the SDN for OpenShift. This can only be done at install time in the install-config.yaml file. This file is stored on the cluster after install. Take a look at the setting.
 
 ```shell
-$ oc extract cm/cluster-config-v1 -n kube-system --to=- | awk '/networkType:/{print $2}'
+oc extract cm/cluster-config-v1 -n kube-system --to=- | awk '/networkType:/{print $2}'
 ```
 
 This should output OVNKubernetes as the network type.
 
-The next requisite is the cluster must be set up with overlay hybrid networking. This is another step that can only be done at install time. You can verify that the configuration has been done by running the following:
+* The next requisite is the cluster must be set up with overlay hybrid networking. This is another step that can only be done at install time. You can verify that the configuration has been done by running the following:
 
 ```shell
-$ oc get network.operator cluster -o yaml | awk '/ovnKubernetesConfig:/{p=1} p&&/^    hybridClusterNetwork:/{print; p=0} p'
+oc get network.operator cluster -o yaml | awk '/ovnKubernetesConfig:/{p=1} p&&/^    hybridClusterNetwork:/{print; p=0} p'
 ```
 
-The output should look like this. As you can see, the hybridOverlayConfig was set up. This is the overlay network setup on the Windows Node.
+* The output should look like this. As you can see, the hybridOverlayConfig was set up. This is the overlay network setup on the Windows Node.
 
 ```shell
     ovnKubernetesConfig:
@@ -83,7 +75,9 @@ To summarize, in order to use Windows Containers on OpenShift. You will need the
 Note, that all of this is done at install time. There’s, currently, no way to configure a cluster for Windows Containers post install.
 
 
+
 <br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
+
 
