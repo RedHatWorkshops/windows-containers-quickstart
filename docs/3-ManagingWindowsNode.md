@@ -2,13 +2,13 @@
 
 Now that the Windows Node is up and running, you will be able to manage it like you would a Linux node. You will be able to scale and delete nodes using the MachineAPI.
 
-1. Currently, you have one Windows node.
+* Currently, you have one Windows node.
 
 ```shell
 oc get nodes -l kubernetes.io/os=windows
 ```
 
-2. In order to add another node, you will just scale the corespoinding MachineSet. Currently, you should have one
+* In order to add another node, you will just scale the corespoinding MachineSet. Currently, you should have one
 
 ```shell
 oc get machineset -l machine.openshift.io/os-id=Windows -n openshift-machine-api
@@ -21,7 +21,7 @@ NAME                                       DESIRED   CURRENT   READY   AVAILABLE
 cluster1-zzv5j-windows-worker-us-east-1a   1         1         1       1           138m
 ```
 
-3. To add another Windows Node, scale the Windows MachineSet to two replicas. This will create a new Windows Machine, and then the WMCO will add it as an OpenShift Node.
+* To add another Windows Node, scale the Windows MachineSet to two replicas. This will create a new Windows Machine, and then the WMCO will add it as an OpenShift Node.
 
 ```shell
 oc scale machineset -l machine.openshift.io/os-id=Windows -n openshift-machine-api --replicas=2
@@ -29,7 +29,7 @@ oc scale machineset -l machine.openshift.io/os-id=Windows -n openshift-machine-a
 
 Note: Just like when you created the inital Windows Node, this can take upwards of 15 minutes. This can be another good time to take a small break.
 
-4. After some time, another Windows Node will have joined the cluster.
+* After some time, another Windows Node will have joined the cluster.
 
 ```shell
 oc get nodes -l kubernetes.io/os=windows
@@ -45,7 +45,7 @@ ip-10-0-143-146.ec2.internal   Ready    worker   3h18m   v1.20.0-1081+d0b1ad449a
 
 You can see how easy it is to manage a Windows Machine with the MachineAPI on OpenShift. It is managed by the same system as your Linux Nodes. You can even attach the Windows MachineSet Autoscaler as well
 
-5. Remove this node by scaling the Windows MachineSet back down to 1.
+* Remove this node by scaling the Windows MachineSet back down to 1.
 
 ```shell
 oc scale machineset -l machine.openshift.io/os-id=Windows -n openshift-machine-api --replicas=1
@@ -53,7 +53,7 @@ oc scale machineset -l machine.openshift.io/os-id=Windows -n openshift-machine-a
 
 Warning: Please scale your Windows MachineSet to 1 before starting the next exercise.
 
-6. After some time, you should be back at 1 Windows node.
+* After some time, you should be back at 1 Windows node.
 
 ```shell
 oc get nodes -l kubernetes.io/os=windows
