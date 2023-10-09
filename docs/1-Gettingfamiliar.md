@@ -3,6 +3,7 @@ In this module, we'll get familiar with the cluster and the install of the Windo
 ```shell
 ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
 ```
+
 [start=1]
 1. This command is used to download a script that installs Helm 3, make the script executable, and then run the script to install Helm 3 on your system.
 
