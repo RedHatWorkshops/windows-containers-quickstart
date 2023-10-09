@@ -5,24 +5,24 @@ With the NetCandy store deployed, you can now take a look to see how this all co
 ## Exploring The Workloads
 
 1. Verify that the NetCandy store was installed.
-
++
 ```shell
 helm ls -n netcandystore
 ```
-
++
 The output should look something like this.
-
++
 ```shell
 NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
 ncs     netcandystore   1               2021-03-31 19:54:50.576808462 +0000 UTC deployed        netcandystore-1.0.3     3.1
 ```
-
++
 There should be 3 pods running for this application. One for the frondend called netcandystore, one for the categories service called getcategories and a DB called mysql.
-
++
 If the helm installation finishes quickly, please examine the pods. It might be necessary to wait for approximately 10-20 minutes for this specific pod to become operational. When you run the command `"oc describe pod <netcandystore-78d78677c8-jmhtg> -n netcandystore` , you will be able to observe that it is currently retrieving the NCS image from quay.io.
-
++
 2. You can see the pods in the namespace netcandystore by running this command.
-
++
 ```shell
 oc get pods -n netcandystore
 ```
