@@ -23,7 +23,7 @@ This application consists of:
 
 We will be using a helm chart to deploy the sample application. In order to successfully deploy the application stack, make sure you’re kubeadmin.
 
-Next add the Red Hat Developer Demos Helm repository.
+* Add the Red Hat Developer Demos Helm repository.
 
 
 ```shell
@@ -31,25 +31,25 @@ helm repo add redhat-demos https://redhat-developer-demos.github.io/helm-repo
 helm repo update
 ```
 
-Create the namespace for netcandystore.
+* Create the namespace for netcandystore.
 
 ```shell
 oc create namespace netcandystore
 ```
 
-Next we will use this command below to create a Kubernetes resource with specific security restrictions and context constraints within the OpenShift cluster.
+* Next we will use this command below to create a Kubernetes resource with specific security restrictions and context constraints within the OpenShift cluster.
 
 ```shell
 oc create -f windows-containers-quickstart/support/restrictedfsgroupscc.yaml
 ```
 
-Next, we’ll allow a specific group of service accounts (in this case, those related to Microsoft SQL Server) to follow the strict security rules defined by the "restrictedfsgroup" Security Context Constraints in the OpenShift system.
+* Next, we’ll allow a specific group of service accounts (in this case, those related to Microsoft SQL Server) to follow the strict security rules defined by the "restrictedfsgroup" Security Context Constraints in the OpenShift system.
 
 ```shell
 oc adm policy add-scc-to-group restrictedfsgroup system:serviceaccounts:mssql
 ```
 
-With the two variables exported, and the helm repo added, you can install the application stack using the helm cli.
+* With the two variables exported, and the helm repo added, you can install the application stack using the helm cli.
 
 ```shell
 helm install ncs --namespace netcandystore \
@@ -90,7 +90,9 @@ Major  Minor  Build  Revision
 
 
 
+
 <br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
+
 
