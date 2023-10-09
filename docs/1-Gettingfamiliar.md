@@ -4,11 +4,9 @@ In this module, we'll get familiar with the cluster and the install of the Windo
 ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
 ```
 
-* This command is used to download a script that installs Helm 3, make the script executable, and then run the script to install Helm 3 on your system.
+* This script will setup your workshop by removing the Windows node from your OpenShift cluster and installing Helm, a tool for managing Kubernetes applications. It will use oc and curl commands to perform these tasks. 
 
 ```shell
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
