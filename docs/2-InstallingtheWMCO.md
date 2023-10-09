@@ -19,12 +19,6 @@ Once the operator is up and running. You are ready to install a Windows Node.
 
 In order for the WMCO to setup the Windows Node, it will need an ssh key to the cloud provider. The cloud provider will then mint a new keypair based on the private key provided. The WMCO will then use this key to login to the Windows Node and set it up as an OpenShift Node. We have already done that so there is no need for you to do that.
 
----
-
-> **The steps below have already been completed for you**
-
-
-
 Generate an ssh key for the WMCO to use (we have already done this step for you):
 
 ```shell
@@ -36,10 +30,6 @@ Once you’ve generated the key, add it as a secret to the openshift-windows-mac
 ```shell
 oc create secret generic cloud-private-key --from-file=private-key.pem=${HOME}/.ssh/winkey -n openshift-windows-machine-config-operator
 ```
-
-> **The steps above have already been completed for you**
-
----
 
 * This secret is used by the WMCO Operator to setup the Windows Node. Verify that it was created before you proceed.
 
@@ -138,30 +128,13 @@ oc get nodes -l kubernetes.io/os=windows
 
 Note: It’ll take up to 15-20 mintues to see the Windows Node appear. It’s recommneded to run a watch on oc get nodes -l kubernetes.io/os=windows so you can see when the node appears. Now will be a good time to take a break.
 
-The output should look something like this. Wait until you have two nodes.
+The output should look something like this. Wait until you have one node.
 
 ```shell
 NAME                                         STATUS   ROLES       AGE      VERSION
 
 ip-10-0-143-170.us-east-2.compute.internal   Ready    worker      4h30m   v1.25.8+37a9a08-dirty
-ip-10-0-145-103.us-east-2.compute.internal   Ready    worker      2m43s   v1.25.8+37a9a08-dirty
 ```
-
-> **WARNING:** Please only proceed with the below steps when you have more than one node.
-
-* Once you have two nodes please delete the oldest node:
-
-```shell
-oc delete node <ip-10-0-231-225.us-east-2.compute.internal>
-```
-
-* Confirm that you only have one node (the youngest)
-
-```shell
-oc get nodes -l kubernetes.io/os=windows
-```
-
-We'll show you how you can scale those nodes up and down next.
 
 
 
