@@ -4,7 +4,7 @@ With the NetCandy store deployed, you can now take a look to see how this all co
 
 ## Exploring The Workloads
 
-+ Verify that the NetCandy store was installed.
+1. Verify that the NetCandy store was installed.
 
 ```shell
 helm ls -n netcandystore
@@ -21,13 +21,13 @@ There should be 3 pods running for this application. One for the frondend called
 
 If the helm installation finishes quickly, please examine the pods. It might be necessary to wait for approximately 10-20 minutes for this specific pod to become operational. When you run the command `"oc describe pod <netcandystore-78d78677c8-jmhtg> -n netcandystore` , you will be able to observe that it is currently retrieving the NCS image from quay.io.
 
-+ You can see the pods in the namespace netcandystore by running this command.
+2. You can see the pods in the namespace netcandystore by running this command.
 
 ```shell
 oc get pods -n netcandystore
 ```
 
-+ You can watch the progress of your pod here
+3. You can watch the progress of your pod here
 
 ```shell
 oc get events --field-selector involvedObject.name=<netcandystore-78d78677c8-rlxrs> -n netcandystore --watch
@@ -49,48 +49,48 @@ helm install ncs --namespace netcandystore --timeout=1200s redhat-demos/netcandy
 
 
 
-+ Looking at the frontend application, you can list where the pod is running. Comparing it to the nodes output, you can see it’s running on a Windows Node.
+4. Looking at the frontend application, you can list where the pod is running. Comparing it to the nodes output, you can see it’s running on a Windows Node.
 
 ```shell
 oc get pods -n netcandystore -l app=netcandystore -o wide
 oc get nodes -l kubernetes.io/os=windows
 ```
 
-+ Now, looking at the backend, you can see it’s running on a Linux node.
+5. Now, looking at the backend, you can see it’s running on a Linux node.
 
 ```shell
 oc get pods -n netcandystore -l app=getcategories -o wide
 oc get nodes -l kubernetes.io/os=linux
 ```
 
-+ The MSSQL Database is also running on the Linux node.
+6. The MSSQL Database is also running on the Linux node.
 
 ```shell
 oc get pods -n netcandystore -l deploymentconfig=mssql -o wide
 ```
 
-+ To obtain the URL for the NetCandyStore, please navigate to your OpenShift Console. You can access it either through the Workshop credentials page or by executing the following command. (Example: console-openshift-console.apps.cluster-tfb7x.tfb7x.sandbox674.opentlc.com):
+7. To obtain the URL for the NetCandyStore, please navigate to your OpenShift Console. You can access it either through the Workshop credentials page or by executing the following command. (Example: console-openshift-console.apps.cluster-tfb7x.tfb7x.sandbox674.opentlc.com):
 
 ```shell
 oc get routes -n openshift-console
 ```
 
-+ Please copy and paste the URL to get to the OpenShift console.
+8. Please copy and paste the URL to get to the OpenShift console.
 
 ```shell
 NAME        HOST/PORT     PATH   SERVICES    PORT    TERMINATION          WILDCARD
 console  console-openshift-console.apps.cluster-whpkq.whpkq.sandbox520.opentlc.com            console     https   reencrypt/Redirect   None
 ```
 
-+ Please login with the the admin creds on the page you started this workshop from.
+9. Please login with the the admin creds on the page you started this workshop from.
 
 
 
-+ Once there please navigate to Networking -> Routes. 
+10. Once there please navigate to Networking -> Routes. 
 
 ![OpenShift Console](images/openshiftconsole.png)
 
-+ You can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
+11. You can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
 
 ![Project NCS](images/projectncs.png)
 
@@ -119,7 +119,6 @@ and Windows containers.
 <br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
-
 
 
 
