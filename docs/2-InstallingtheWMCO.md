@@ -1,9 +1,9 @@
 ## Installing the WMCO
 
-You should see the WMCO pod running, we have already set that operator up for you:
+* You should see the WMCO pod running, we have already set that operator up for you:
 
 ```shell
-$ oc get pods -n openshift-windows-machine-config-operator
+oc get pods -n openshift-windows-machine-config-operator
 ```
 
 The output should look something like this.
@@ -17,86 +17,86 @@ Once the operator is up and running. You are ready to install a Windows Node.
 
 ## Installing a Windows Node.
 
-In order for the WMCO to setup the Windows Node, it will need an ssh key to the cloud provider. The cloud provider will then mint a new keypair based on the private key provided. The WMCO will then use this key to login to the Windows Node and set it up as an OpenShift Node.
+In order for the WMCO to setup the Windows Node, it will need an ssh key to the cloud provider. The cloud provider will then mint a new keypair based on the private key provided. The WMCO will then use this key to login to the Windows Node and set it up as an OpenShift Node. We have already done that so there is no need for you to do that.
 
-Generate an ssh key for the WMCO to use:
+Generate an ssh key for the WMCO to use (we have already done this step for you):
 
 ```shell
-$ ssh-keygen -t rsa -f ${HOME}/.ssh/winkey -q -N ''
+ssh-keygen -t rsa -f ${HOME}/.ssh/winkey -q -N ''
 ```
 
-Once you’ve generated the key, add it as a secret to the openshift-windows-machine-config-operator namespace.
+Once you’ve generated the key, add it as a secret to the openshift-windows-machine-config-operator namespace (we have already done this step for you).
 
 ```shell
-$ oc create secret generic cloud-private-key --from-file=private-key.pem=${HOME}/.ssh/winkey -n openshift-windows-machine-config-operator
+oc create secret generic cloud-private-key --from-file=private-key.pem=${HOME}/.ssh/winkey -n openshift-windows-machine-config-operator
 ```
 
-This secret is used by the WMCO Operator to setup the Windows Node. Verify that it was created before you proceed.
+* This secret is used by the WMCO Operator to setup the Windows Node. Verify that it was created before you proceed.
 
 ```shell
-$ oc get secret -n openshift-windows-machine-config-operator cloud-private-key
+oc get secret -n openshift-windows-machine-config-operator cloud-private-key
 ```
 
 Once the WMCO Operator is up and running, and the ssh key loaded into the cluster as a secret, you can now deploy a Windows Node. How do you build a Windows Node? The same way you create OpenShift Linux nodes, with the MachineAPI
 
-First, we will be creating a MachineSet for Windows Nodes. We will then explore important sections of the YAML.
-
-```shell
-$ windows-containers-quickstart/support/generate-windows-ms.sh
-```
-
-If you get a permissions denied error you may need to change permissions using this command. Once changing the permissions below please run the above command again before proceeding.
+* We need to change the permissions using this command.
 
 ```shell
 chmod +x windows-containers-quickstart/support/generate-windows-ms.sh
 ```
 
-This should create the windows-ms.yaml file in your home directory.
+* First, we will be creating a MachineSet for Windows Nodes. We will then explore important sections of the YAML.
 
 ```shell
-$ ls -l ~/windows-ms.yaml
+windows-containers-quickstart/support/generate-windows-ms.sh
 ```
 
-The Windows MachineSet is labeled with an Operating System ID of Windows. The following command will show the label of machine.openshift.io/os-id: Windows for the MachineSet.
+* This should create the windows-ms.yaml file in your home directory.
 
 ```shell
-$ cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin), sys.stdout, indent=4)' | jq '.metadata.labels'
+ls -l ~/windows-ms.yaml
 ```
 
-All the Windows Machines will have the worker label. The Windows Node will be treated like any other node in the cluster.
+* The Windows MachineSet is labeled with an Operating System ID of Windows. The following command will show the label of machine.openshift.io/os-id: Windows for the MachineSet.
 
 ```shell
-$ cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin)["spec"]["template"]["spec"]["metadata"]["labels"], sys.stdout, indent=4)' | jq
+cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin), sys.stdout, indent=4)' | jq '.metadata.labels'
 ```
 
-The AMI ID is of a Windows Server 2019 AMI.
+* All the Windows Machines will have the worker label. The Windows Node will be treated like any other node in the cluster.
 
 ```shell
-$ cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin), sys.stdout)' | jq -r '.spec.template.spec.providerSpec.value.ami.id'
+cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin)["spec"]["template"]["spec"]["metadata"]["labels"], sys.stdout, indent=4)' | jq
 ```
 
-One last thing to note, is the user data secret.
+* The AMI ID is of a Windows Server 2019 AMI.
 
 ```shell
-$ cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; data = yaml.safe_load(sys.stdin); print(data["spec"]["template"]["spec"]["providerSpec"]["value"]["userDataSecret"]["name"])'
+cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin), sys.stdout)' | jq -r '.spec.template.spec.providerSpec.value.ami.id'
 ```
 
-This secret is generated by the WMCO when it was installed.
+* One last thing to note, is the user data secret.
 
 ```shell
-$ oc get secret windows-user-data -n openshift-machine-api
+cat ~/windows-ms.yaml | python3 -c 'import sys, yaml, json; data = yaml.safe_load(sys.stdin); print(data["spec"]["template"]["spec"]["providerSpec"]["value"]["userDataSecret"]["name"])'
 ```
 
-Apply the YAML to create the Windows MachineSet on the cluster.
+* This secret is generated by the WMCO when it was installed.
 
 ```shell
-$ oc apply -f ~/windows-ms.yaml
+oc get secret windows-user-data -n openshift-machine-api
 ```
 
-You can now see the status of the MachineSet.
+* Apply the YAML to create the Windows MachineSet on the cluster.
 
 ```shell
-$ oc get machinesets  -n openshift-machine-api -l machine.openshift.io/os-id=Windows
+oc apply -f ~/windows-ms.yaml
+```
+
+* You can now see the status of the MachineSet.
+
+```shell
+oc get machinesets  -n openshift-machine-api -l machine.openshift.io/os-id=Windows
 ```
 
 This should show the following output.
@@ -106,13 +106,13 @@ NAME                                       DESIRED   CURRENT   READY   AVAILABLE
 cluster1-wrkjp-windows-worker-us-east-1a   1         1                             9s
 ```
 
-The MachineSet has the replica set to 1. The MachineAPI will see that desired state and, in turn, create a Windows Machine. This machine will eventually turn into a node. See the status of the machine with the following command.
+* The MachineSet has the replica set to 1. The MachineAPI will see that desired state and, in turn, create a Windows Machine. This machine will eventually turn into a node. See the status of the machine with the following command.
 
 ```shell
 oc get machines  -n openshift-machine-api -l machine.openshift.io/os-id=Windows
 ```
 
-Once the Machine is up and running, the WMCO will configure it. You can follow that status by looking at the WMCO pod log.
+* Once the Machine is up and running, the WMCO will configure it. You can follow that status by looking at the WMCO pod log.
 
 ```shell
 oc logs -l name=windows-machine-config-operator -n openshift-windows-machine-config-operator   -f
@@ -120,23 +120,27 @@ oc logs -l name=windows-machine-config-operator -n openshift-windows-machine-con
 
 You can exit by pressing kbd:[Ctrl+C].
 
-This Machine will create a Windows Node and the WMCO will add it to the cluster. You can see the node with the following command.
+* This Machine will create a Windows Node and the WMCO will add it to the cluster. You can see the node with the following command.
 
 ```shell
 oc get nodes -l kubernetes.io/os=windows
 ```
 
-Note: It’ll take up to 15 mintues to see the Windows Node appear. It’s recommneded to run a watch on oc get nodes -l kubernetes.io/os=windows so you can see when the node appears. Now will be a good time to take a break.
+Note: It’ll take up to 15-20 mintues to see the Windows Node appear. It’s recommneded to run a watch on oc get nodes -l kubernetes.io/os=windows so you can see when the node appears. Now will be a good time to take a break.
 
-The output should look something like this.
+The output should look something like this. Wait until you have one node.
 
 ```shell
-NAME                          STATUS   ROLES    AGE   VERSION
-ip-10-0-140-10.ec2.internal   Ready    worker   22m   v1.20.0-1081+d0b1ad449a08b3
+NAME                                         STATUS   ROLES       AGE      VERSION
+
+ip-10-0-143-170.us-east-2.compute.internal   Ready    worker      4h30m   v1.25.8+37a9a08-dirty
 ```
 
 
+
+
 <br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
+
 
