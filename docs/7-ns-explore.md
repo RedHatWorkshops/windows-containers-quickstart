@@ -4,7 +4,7 @@ With the NetCandy store deployed, you can now take a look to see how this all co
 
 ## Exploring The Workloads
 
-Verify that the NetCandy store was installed.
+* Verify that the NetCandy store was installed.
 
 ```shell
 helm ls -n netcandystore
@@ -21,17 +21,19 @@ There should be 3 pods running for this application. One for the frondend called
 
 If the helm installation finishes quickly, please examine the pods. It might be necessary to wait for approximately 10-20 minutes for this specific pod to become operational. When you run the command `"oc describe pod <netcandystore-78d78677c8-jmhtg> -n netcandystore` , you will be able to observe that it is currently retrieving the NCS image from quay.io.
 
+* You can see the pods in the namespace netcandystore by running this command.
+
 ```shell
 oc get pods -n netcandystore
 ```
 
-You can watch the progress of your pod here
+* You can watch the progress of your pod here
 
 ```shell
 oc get events --field-selector involvedObject.name=<netcandystore-78d78677c8-rlxrs> -n netcandystore --watch
 ```
 
-> **WARNING:** Please do **not** perform the following steps if your NetCandyStore pods are currently running. If the NetCandyStore pod is experiencing any issues, you may consider deleting and redeploying it.
+> **WARNING:** Please do **not** perform the following steps if your NetCandyStore pods are currently running or if you haven't waited (10-20 minutes). If the NetCandyStore pod is experiencing any issues, you may consider deleting and redeploying it.
 
 ```shell
 helm uninstall ncs --namespace netcandystore
@@ -47,39 +49,56 @@ helm install ncs --namespace netcandystore --timeout=1200s redhat-demos/netcandy
 
 
 
-Looking at the frontend application, you can list where the pod is running. Comparing it to the nodes output, you can see it’s running on a Windows Node.
+* Looking at the frontend application, you can list where the pod is running. Comparing it to the nodes output, you can see it’s running on a Windows Node.
 
 ```shell
 oc get pods -n netcandystore -l app=netcandystore -o wide
 oc get nodes -l kubernetes.io/os=windows
 ```
 
-Now, looking at the backend, you can see it’s running on a Linux node.
+* Now, looking at the backend, you can see it’s running on a Linux node.
 
 ```shell
 oc get pods -n netcandystore -l app=getcategories -o wide
 oc get nodes -l kubernetes.io/os=linux
 ```
 
-The MSSQL Database is also running on the Linux node.
+* The MSSQL Database is also running on the Linux node.
 
 ```shell
 oc get pods -n netcandystore -l deploymentconfig=mssql -o wide
 ```
 
-To obtain the URL for the NetCandyStore, please navigate to your OpenShift Console. You can access it either through the Workshop credentials page or by executing the following command. (Example: console-openshift-console.apps.cluster-tfb7x.tfb7x.sandbox674.opentlc.com):
+* To obtain the URL for the NetCandyStore, please navigate to your OpenShift Console. You can access it either through the Workshop credentials page or by executing the following command. (Example: console-openshift-console.apps.cluster-tfb7x.tfb7x.sandbox674.opentlc.com):
 
 ```shell
 oc get routes -n openshift-console
 ```
 
-Please login with the the admin creds on the page you started this workshop from.
+* Copy and paste the URL to get to the OpenShift console.
 
-Once there please navigate to Networking -> Routes and then you can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
+```shell
+NAME        HOST/PORT     PATH   SERVICES    PORT    TERMINATION          WILDCARD
+console  console-openshift-console.apps.cluster-whpkq.whpkq.sandbox520.opentlc.com            console     https   reencrypt/Redirect   None
+```
+
+* Login with the the admin creds on the page you started this workshop from.
+
+
+
+* Once there please navigate to Networking -> Routes. 
+
+![OpenShift Console](images/openshiftconsole.png)
+
+* You can either search for NetCandyStore or simply select the NetCandyStore project. You will see the link to the NetCandyStore there.
+
+![Project NCS](images/projectncs.png)
+
+![Routes NCS](images/routesncs.png)
  
 The frontpage should look like this, feel free to play around with the application!
 
-Picture
+![ncs app](images/ncs.png)
 
 ## Conclusion
 
@@ -94,6 +113,7 @@ Linux Nodes.
 
 Finally, you learned how you can used mixed workloads made up of Linux
 and Windows containers.
+
 
 
 <br/><br/><br/>
