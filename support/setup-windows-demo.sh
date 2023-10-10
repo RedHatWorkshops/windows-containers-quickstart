@@ -26,11 +26,6 @@ nohup oc delete secret cloud-private-key -n openshift-windows-machine-config-ope
 # Wait for the command to finish and print a message or an error 
 wait $! && echo "Step 6: Deleting secret file complete" || echo "Step 6: Deleting secret file failed"
 
-# Clone the windows-containers-quickstart repository from GitHub using the dev branch and only the latest commit 
-nohup git clone --single-branch --branch dev https://github.com/RedHatWorkshops/windows-containers-quickstart.git &>/dev/null &
-# Wait for the command to finish and print a message or an error 
-wait $! && echo "Step7: Cloning repository complete" || echo "Step7: Cloning repository failed"
-
 # Print "Done" to the screen 
 echo "Done"
 
