@@ -4,6 +4,12 @@ In this module, we'll get familiar with the cluster and the install of the Windo
 ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
 ```
 
+Next, we'll clone a repository from GitHub and utilize certain YAML files from it:
+
+```shell
+git clone --single-branch --branch dev https://github.com/RedHatWorkshops/windows-containers-quickstart.git
+```
+
 If you examine these two commands, you will observe that this demonstration already includes a Windows node and a Windows secret configuration. To provide you with the opportunity to set up these components manually, we will execute the following script to remove them.
 
 ```shell
@@ -11,10 +17,11 @@ oc get nodes -l kubernetes.io/os=windows
 oc get secret -n openshift-windows-machine-config-operator cloud-private-key
 ```
 
-* This script will setup your workshop by removing the Windows node from your OpenShift cluster, removing the windows secret, installing Helm, a tool for managing Kubernetes applications. It will also clone a workshop repo that we will be using throughout this demo. It will use oc and curl commands to perform these tasks. 
+* This script will setup your workshop by removing the Windows node from your OpenShift cluster, removing the windows secret, installing Helm, a tool for managing Kubernetes applications. It will also clone a workshop repo that we will be using throughout this demo. It will use oc and curl commands to perform these tasks.
 
 ```shell
-./setup-windows-demo.sh
+chmod 700 ~/windows-containers-quickstart/support/setup-windows-demo.sh 
+~/windows-containers-quickstart/support/setup-windows-demo.sh
 ```
 
 * Before proceeding, make sure you’re admin, you will find your login details on your workshop deployment:
@@ -73,7 +80,6 @@ To summarize, in order to use Windows Containers on OpenShift. You will need the
 - Additionally set up hybrid overlay networking.
 
 Note, that all of this is done at install time. There’s, currently, no way to configure a cluster for Windows Containers post install.
-
 
 
 
