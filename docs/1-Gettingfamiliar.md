@@ -4,6 +4,12 @@ In this module, we'll get familiar with the cluster and the install of the Windo
 ssh chernand-redhat.com@bastion.lax-e35b.sandbox886.opentlc.com
 ```
 
+Next, we'll clone a repository from GitHub and utilize certain YAML files from it:
+
+```shell
+git clone --single-branch --branch dev https://github.com/RedHatWorkshops/windows-containers-quickstart.git
+```
+
 If you examine these two commands, you will observe that this demonstration already includes a Windows node and a Windows secret configuration. To provide you with the opportunity to set up these components manually, we will execute the following script to remove them.
 
 ```shell
