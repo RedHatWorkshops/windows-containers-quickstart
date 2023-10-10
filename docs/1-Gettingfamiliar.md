@@ -20,7 +20,7 @@ oc get secret -n openshift-windows-machine-config-operator cloud-private-key
 * This script will setup your workshop by removing the Windows node from your OpenShift cluster, removing the windows secret, installing Helm, a tool for managing Kubernetes applications. It will also clone a workshop repo that we will be using throughout this demo. It will use oc and curl commands to perform these tasks. 
 
 ```shell
-./setup-windows-demo.sh
+~/windows-containers-quickstart/support/setup-windows-demo.sh
 ```
 
 * Before proceeding, make sure you’re admin, you will find your login details on your workshop deployment:
