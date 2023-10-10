@@ -136,6 +136,10 @@ NAME                                         STATUS   ROLES       AGE      VERSI
 ip-10-0-143-170.us-east-2.compute.internal   Ready    worker      4h30m   v1.25.8+37a9a08-dirty
 ```
 
+If after some time you still have 2 nodes please delete the oldest node:
+```shell
+oc delete node <ip-10-0-218-104.us-east-2.compute.internal>
+```
 
 
 
