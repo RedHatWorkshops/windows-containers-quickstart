@@ -18,7 +18,7 @@ nav:
     - 'Managing a Windows Node': '3-ManagingWindowsNode.md'
     - 'Exploring The Windows Node': '4-ExploringTheWindowsNode.md'
     - 'Running a Windows Container Workload': '5-WindowsContainerWorkload.md'
-- Mixed Linux and Windows Workloads:
+- NetCandyStore:
     - 'Introduction': 'ns-intro.md'
     - 'Deploying NetCandy Store': '6-ns-deploy.md'
     - 'Exploring NetCandy Store': '7-ns-explore.md'
