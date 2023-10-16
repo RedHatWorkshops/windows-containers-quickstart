@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Get the name of the windows machine set using oc command and grep command
-windows_machineset=$(oc get machineset -n openshift-machine-api -o name | grep windows | cut -d/ -f2) &
+windows_machineset=$(oc get machineset -n openshift-machine-api -o name | grep windows | cut -d/ -f2)
 
 # Scale down the windows machine set to 0 using oc scale command
-oc scale machineset $windows_machineset --replicas=0 -n openshift-machine-api &>/dev/null &&
+oc scale machineset $windows_machineset --replicas=0 -n openshift-machine-api
 
 # Wait for the command to finish and print a message
 wait $! && echo "Step 1: Windows Machineset scaled" || echo "Step 1: Scaling Windows Machineset failed"
