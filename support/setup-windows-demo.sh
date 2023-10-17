@@ -1,31 +1,33 @@
-# Get the name of the node with the label kubernetes.io/os=windows
-nohup node_name=$(oc get nodes -l kubernetes.io/os=windows -o name | cut -d/ -f2) &>/dev/null &
-# Wait for the command to finish and print a message or an error 
-wait $! && echo "Step 1: Getting node name complete" || echo "Step 1: Getting node name failed"
+#!/bin/bash
 
-# Delete the node using the name
-nohup oc delete node $node_name &>/dev/null &
-# Wait for the command to finish and print a message or an error 
-wait $! && echo "Step 2: Deleting node complete" || echo "Step 2: Deleting node failed"
+# Get the name of the windows machine set using oc command and grep command
+windows_machineset=$(oc get machineset -n openshift-machine-api -o name | grep windows | cut -d/ -f2)
+
+# Scale down the windows machine set to 0 using oc scale command
+oc scale machineset $windows_machineset --replicas=0 -n openshift-machine-api
+
+# Wait for the command to finish and print a message
+wait $! && echo "Step 1: Windows Machineset scaled" || echo "Step 1: Scaling Windows Machineset failed"
 
 # Download and install Helm
-nohup curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 &>/dev/null &
-# Wait for the command to finish and print a message or an error 
-wait $! && echo "Step 3: Downloading Helm complete" || echo "Step 3: Downloading Helm failed"
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 &>/dev/null &&
 
-nohup chmod 700 get_helm.sh &>/dev/null &
-# Wait for the command to finish and print a message or an error 
-wait $! && echo "Step 4: Making script executable complete" || echo "Step 4: Making script executable failed"
+# Make script executable
+chmod 700 get_helm.sh &>/dev/null &&
 
-nohup ./get_helm.sh &>/dev/null &
+./get_helm.sh &>/dev/null &
 # Wait for the command to finish and print a message or an error 
-wait $! && echo "Step 5: Installing Helm complete" || echo "Step 5: Installing Helm failed"
+wait $! && echo "Step 2: Installing Helm complete" || echo "Step 2: Installing Helm failed"
 
 # Delete the secret file named cloud-private-key in the namespace openshift-windows-machine-config-operator
-nohup oc delete secret cloud-private-key -n openshift-windows-machine-config-operator &>/dev/null &
+oc delete secret cloud-private-key -n openshift-windows-machine-config-operator &>/dev/null &&
 # Wait for the command to finish and print a message or an error 
-wait $! && echo "Step 6: Deleting secret file complete" || echo "Step 6: Deleting secret file failed"
+wait $! && echo "Step 3: Deleting secret file complete" || echo "Step 3: Deleting secret file failed"
+
+# Make all files in the directory executable
+chmod +x /home/lab-user/windows-containers-quickstart/support/* &>/dev/null &&
+# Wait for the command to finish and print a message or an error 
+wait $! && echo "Step 4: Make scripts executable" || echo "Step 4: Make scripts executable failed"
 
 # Print "Done" to the screen 
 echo "Done"
-
