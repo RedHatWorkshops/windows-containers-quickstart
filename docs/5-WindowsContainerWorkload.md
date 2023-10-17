@@ -162,9 +162,6 @@ Get-WmiObject Win32_Process -Filter "name = 'powershell.exe'" | Select-Object Co
 exit
 ```
 
-```shell
-exit
-```
 
 * You can interact with the Windows Container Deployment the same as you would for a Linux one. Scale the Deployment of the Windows Container:
 
