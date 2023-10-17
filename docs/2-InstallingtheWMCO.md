@@ -130,20 +130,6 @@ NAME                                         STATUS   ROLES       AGE      VERSI
 ip-10-0-143-170.us-east-2.compute.internal   Ready    worker      4h30m   v1.25.8+37a9a08-dirty
 ```
 
-> **WARNING:** Please only proceed with the below steps if you have more than one node after 15 minutes.
-
-* If after 15 minutes you still have two nodes please delete the oldest node:
-
-```shell
-oc delete node <ip-10-0-231-225.us-east-2.compute.internal>
-```
-
-* Confirm that you only have one node (the youngest)
-
-```shell
-oc get nodes -l kubernetes.io/os=windows
-```
-
 We'll show you how you can scale those nodes up and down next.
 
 
