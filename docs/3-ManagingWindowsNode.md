@@ -51,20 +51,6 @@ You can see how easy it is to manage a Windows Machine with the MachineAPI on Op
 oc scale machineset -l machine.openshift.io/os-id=Windows -n openshift-machine-api --replicas=1
 ```
 
-Warning: Please scale your Windows MachineSet to 1 before starting the next exercise.
-
-* After some time, you should be back at 1 Windows node.
-
-```shell
-oc get nodes -l kubernetes.io/os=windows
-```
-
-If, after 15 minutes, you still have 2 nodes, please remove the oldest node.
-```shell
-oc delete node <ip-10-0-218-104.us-east-2.compute.internal>
-```
-
-
 
 
 <br/><br/><br/>
