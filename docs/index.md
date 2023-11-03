@@ -6,13 +6,14 @@ This guide is meant to help you to see what you can (and also cannot) do with Wi
 
 A few things before we get started; You should have gotten an email from the RHPDS system. I'm assuming you have or else how else would you be reading this? :)
 
-
 ## Updates [Please Read]
 
 - Made changes and improvements to the NetCandyStore modules.
 - We've also pushed OpenShift to 4.12.
 - A new set of instructions is now available.
 - Please be aware that starting from version 4.11, the external Prometheus console has been phased out. This workshop is not intended to be used for Prometheus or Grafana.
+
+![WMCOS](images/WMCOS.png)
 
 That email has all the information you need in order to test/demo Windows Containers. This includes instructions on how to ssh into the bastion host. Go ahead and do that now. Example:
 
