@@ -6,7 +6,7 @@ This guide is meant to help you to see what you can (and also cannot) do with Wi
 
 A few things before we get started; You should have gotten an email from the RHPDS system. I'm assuming you have or else how else would you be reading this? :)
 
-## Updates [Please Read]
+## Release Notes
 
 - Made changes and improvements to the NetCandyStore modules.
 - We've also pushed OpenShift to 4.12.
