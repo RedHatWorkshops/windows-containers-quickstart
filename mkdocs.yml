@@ -12,15 +12,13 @@ extra_css:
 nav:
 - Home: 'index.md'
 - Getting Started:
-    - 'Getting familiar with the installation': 'getting-familiar.md'
-    - 'Accessing the Windows Node': 'accessing-windows-node.md'
-- Deploying A Sample Application:
-    - 'Predeployment Steps': 'predeploy-steps.md'
-    - 'Deploying the Application': 'deploying-sample-app.md'
+    - 'Getting familiar with the installation': '1-Gettingfamiliar.md'
+    - 'Installing The WMCO': '2-InstallingtheWMCO.md'
 - Working With The Windows Node:
-    - 'Scaling the Windows MachineSet': 'ms-scaling.md'
-    - 'Exploring the WMCO': 'exploring-wmco.md'
-- Mixed Linux and Windows Workloads:
+    - 'Managing a Windows Node': '3-ManagingWindowsNode.md'
+    - 'Exploring The Windows Node': '4-ExploringTheWindowsNode.md'
+    - 'Running a Windows Container Workload': '5-WindowsContainerWorkload.md'
+- NetCandyStore:
     - 'Introduction': 'ns-intro.md'
-    - 'Deploying NetCandy Store': 'ns-deploy.md'
-    - 'Exploring NetCandy Store': 'ns-explore.md'
+    - 'Deploying NetCandy Store': '6-ns-deploy.md'
+    - 'Exploring NetCandy Store': '7-ns-explore.md'
