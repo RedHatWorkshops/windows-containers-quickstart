@@ -20,7 +20,7 @@ This host has everything needed in order to ssh into your Windows Node. First, g
 ```shell
 $ oc get nodes -l kubernetes.io/os=windows
 NAME                         STATUS   ROLES    AGE   VERSION
-ip-10-0-138-9.ec2.internal   Ready    worker   14m   v1.21.1-1398+98073871f173b
+ip-10-0-237-81.us-east-2.compute.internal   Ready    worker   141m   v1.25.16+1eb8682
 ```
 
 Then, you can `rsh` into this container with the following command:
